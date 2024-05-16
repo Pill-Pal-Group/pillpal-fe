@@ -1,23 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  Layout,
-  Menu,
-  Button,
-  Row,
-  Col,
-  Typography,
-  Form,
-  Input,
-  Switch,
-} from "antd";
-import signinbg from "../assets/images/img-signin.jpg";
 import {
   DribbbleOutlined,
-  TwitterOutlined,
-  InstagramOutlined,
   GithubOutlined,
+  InstagramOutlined,
+  TwitterOutlined,
 } from "@ant-design/icons";
+import { Button, Col, Form, Input, Layout, Menu, Row, Typography } from "antd";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import signinbg from "../assets/images/img-signin.jpg";
 import { useLogin } from "../hooks/useAuthApi";
 
 const { Title } = Typography;
