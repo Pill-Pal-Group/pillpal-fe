@@ -10,31 +10,31 @@
   * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 */
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import {
-  Row,
-  Col,
-  Breadcrumb,
-  Badge,
-  Dropdown,
-  Button,
-  List,
   Avatar,
-  Input,
+  Badge,
+  Breadcrumb,
+  Button,
+  Col,
   Drawer,
-  Typography,
+  Dropdown,
+  Input,
+  List,
+  Row,
   Switch,
+  Typography,
 } from "antd";
 
 import {
+  FacebookFilled,
   SearchOutlined,
   StarOutlined,
   TwitterOutlined,
-  FacebookFilled,
 } from "@ant-design/icons";
 
-import { NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import avtar from "../../assets/images/team-2.jpg";
 
@@ -421,10 +421,7 @@ function Header({
               </div>
             </div>
           </Drawer>
-          <Link to="/sign-in" className="btn-sign-in">
-            {profile}
-            <span>Sign in</span>
-          </Link>
+
           <Input
             className="header-search"
             placeholder="Type here..."

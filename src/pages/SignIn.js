@@ -5,8 +5,9 @@ import {
   TwitterOutlined,
 } from "@ant-design/icons";
 import { Button, Col, Form, Input, Layout, Menu, Row, Typography } from "antd";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import signinbg from "../assets/images/img-signin.jpg";
 import { useLogin } from "../hooks/useAuthApi";
 
@@ -101,17 +102,21 @@ const SignIn = () => {
   const { mutate, isLoading, error } = useLogin();
   const [data, setData] = useState({ email: "", password: "" });
 
+  const navigate = useHistory();
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("a");
-    mutate(data);
+    mutate(data, {
+      onSuccess: (res) => {
+        if (res?.data?.token) {
+          localStorage.setItem("token", res?.data?.token);
+          navigate.push("/");
+        } else {
+          window.alert(res?.data?.message);
+        }
+      },
+    });
   };
-
-  useEffect(() => {
-    if (error) {
-      window.alert(error.message);
-    }
-  }, [error]);
 
   return (
     <Layout className="layout-default layout-signin">
@@ -131,18 +136,6 @@ const SignIn = () => {
               <Link to="/profile">
                 {profile}
                 <span>Profile</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Link to="/sign-up">
-                {signup}
-                <span> Sign Up</span>
-              </Link>
-            </Menu.Item>
-            <Menu.Item key="4">
-              <Link to="/sign-in">
-                {signin}
-                <span> Sign In</span>
               </Link>
             </Menu.Item>
           </Menu>
