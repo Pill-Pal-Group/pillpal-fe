@@ -110,6 +110,7 @@ const SignIn = () => {
       onSuccess: (res) => {
         if (res?.data?.token) {
           localStorage.setItem("token", res?.data?.token);
+          localStorage.setItem("email", data.email);
           navigate.push("/");
         } else {
           window.alert(res?.data?.message);
