@@ -1,18 +1,6 @@
-/*!
-  =========================================================
-  * Muse Ant Design Dashboard - v1.0.0
-  =========================================================
-  * Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-  * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-  * Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-  * Coded by Creative Tim
-  =========================================================
-  * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
-// import { useState } from "react";
-import { Menu, Button } from "antd";
+import { Button, Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import logo from "../../assets/images/logo.png";
 
 function Sidenav({ color }) {
@@ -140,25 +128,12 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
-  const signup = [
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="14"
-      height="14"
-      viewBox="0 0 14 14"
-      key={0}
-    >
-      <path
-        d="M0,2A2,2,0,0,1,2,0H8a2,2,0,0,1,2,2V8a2,2,0,0,1-2,2H2A2,2,0,0,1,0,8Z"
-        transform="translate(4 4)"
-        fill={color}
-      />
-      <path
-        d="M2,0A2,2,0,0,0,0,2V8a2,2,0,0,0,2,2V4A2,2,0,0,1,4,2h6A2,2,0,0,0,8,0Z"
-        fill={color}
-      />
-    </svg>,
-  ];
+  const navigate = useHistory();
+
+  const onLogout = () => {
+    window.localStorage.clear();
+    navigate.push("/sign-in");
+  };
 
   return (
     <>
@@ -237,16 +212,10 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
-          <NavLink to="/sign-in">
+          <div onClick={onLogout}>
             <span className="icon">{signin}</span>
-            <span className="label">Sign In</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="8">
-          <NavLink to="/sign-up">
-            <span className="icon">{signup}</span>
-            <span className="label">Sign Up</span>
-          </NavLink>
+            <span className="label">Log out</span>
+          </div>
         </Menu.Item>
       </Menu>
       <div className="aside-footer">
