@@ -4,15 +4,16 @@ import "./assets/styles/main.css";
 import "./assets/styles/responsive.css";
 import Main from "./components/layout/Main";
 import Protected from "./components/provider/Protected";
+import "./global.css";
 import Billing from "./pages/Billing";
 import Home from "./pages/Home";
+import ProductDetail from "./pages/ProductDetail/ProductDetail";
+import Products from "./pages/Products/Products";
 import Profile from "./pages/Profile";
 import Rtl from "./pages/Rtl";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Tables from "./pages/Tables";
-import Products from "./pages/Products/Products";
-import "./global.css";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route exact path="/dashboard" component={Home} />
             <Route exact path="/tables" component={Tables} />
             <Route exact path="/products" component={Products} />
+            <Route exact path="/products/:id" component={ProductDetail} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/rtl" component={Rtl} />
             <Route exact path="/profile" component={Profile} />

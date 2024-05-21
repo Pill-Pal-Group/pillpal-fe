@@ -1,8 +1,7 @@
+import { Badge, Card, Col } from "antd";
 import React from "react";
-import "./style.css";
-import { Card, Col, Row, Button, Badge } from "antd";
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
+import "./style.css";
 const { Meta } = Card;
 
 const ProductCard = () => {
@@ -47,13 +46,6 @@ const ProductCard = () => {
               </>
             }
           />
-          <Button
-            type="primary"
-            icon={<ShoppingCartOutlined />}
-            className="add-to-cart"
-          >
-            Thêm vào giỏ thuốc
-          </Button>
         </Card>
       </Badge.Ribbon>
     </Col>
