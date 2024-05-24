@@ -39,6 +39,7 @@ import face4 from "../assets/images/face-4.jpg";
 import face5 from "../assets/images/face-5.jpeg";
 import face6 from "../assets/images/face-6.jpeg";
 import pencil from "../assets/images/pencil.svg";
+import { act } from "react";
 
 const { Title } = Typography;
 
@@ -62,27 +63,42 @@ const formProps = {
 // table code start
 const columns = [
   {
-    title: "AUTHOR",
+    title: "Tên",
     dataIndex: "name",
     key: "name",
-    width: "32%",
+    width: "15%",
   },
   {
-    title: "FUNCTION",
+    title: "Email",
+    dataIndex: "email",
+    key: "email",
+    width: "15%",
+  },
+  {
+    title: "Vai trò",
     dataIndex: "function",
     key: "function",
+    width: "10%",
   },
 
   {
-    title: "STATUS",
+    title: "Trạng thái",
     key: "status",
     dataIndex: "status",
+    width: "10%",
   },
   {
-    title: "EMPLOYED",
+    title: "Ngày Tạo",
     key: "employed",
     dataIndex: "employed",
+    width: "10%",
   },
+  {
+    title: "",
+    key: "action",
+    dataIndex: "action",
+    width: "10%",
+  }
 ];
 
 const data = [
@@ -99,11 +115,15 @@ const data = [
           ></Avatar>
           <div className="avatar-info">
             <Title level={5}>Michael John</Title>
-            <p>michael@mail.com</p>
           </div>
         </Avatar.Group>{" "}
       </>
     ),
+    email: (
+      <>
+        <div className="author-info" />
+        <h4>michael@mail.com</h4>
+      </>),
     function: (
       <>
         <div className="author-info">
@@ -112,11 +132,10 @@ const data = [
         </div>
       </>
     ),
-
     status: (
       <>
-        <Button type="primary" className="tag-primary">
-          ONLINE
+        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+          Kích hoạt
         </Button>
       </>
     ),
@@ -124,8 +143,15 @@ const data = [
       <>
         <div className="ant-employed">
           <span>23/04/18</span>
-          <a href="#pablo">Edit</a>
+
         </div>
+      </>
+    ),
+    action: (
+      <>
+        <Button type="primary" danger>
+          Vô hiệu hóa
+        </Button>
       </>
     ),
   },
@@ -143,11 +169,15 @@ const data = [
           ></Avatar>
           <div className="avatar-info">
             <Title level={5}>Alexa Liras</Title>
-            <p>alexa@mail.com</p>
           </div>
         </Avatar.Group>{" "}
       </>
     ),
+    email: (
+      <>
+        <div className="author-info" />
+        <h4>alexa@mail.com</h4>
+      </>),
     function: (
       <>
         <div className="author-info">
@@ -159,15 +189,23 @@ const data = [
 
     status: (
       <>
-        <Button className="tag-badge">ONLINE</Button>
+        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+          Kích hoạt
+        </Button>
       </>
     ),
     employed: (
       <>
         <div className="ant-employed">
           <span>23/12/20</span>
-          <a href="#pablo">Edit</a>
         </div>
+      </>
+    ),
+    action: (
+      <>
+        <Button type="primary" danger>
+          Vô hiệu hóa
+        </Button>
       </>
     ),
   },
@@ -185,11 +223,15 @@ const data = [
           ></Avatar>
           <div className="avatar-info">
             <Title level={5}>Laure Perrier</Title>
-            <p>laure@mail.com</p>
           </div>
         </Avatar.Group>{" "}
       </>
     ),
+    email: (
+      <>
+        <div className="author-info" />
+        <h4>laure@mail.com</h4>
+      </>),
     function: (
       <>
         <div className="author-info">
@@ -201,8 +243,8 @@ const data = [
 
     status: (
       <>
-        <Button type="primary" className="tag-primary">
-          ONLINE
+        <Button type="primary" danger>
+          Vô hiệu hóa
         </Button>
       </>
     ),
@@ -210,8 +252,14 @@ const data = [
       <>
         <div className="ant-employed">
           <span>03/04/21</span>
-          <a href="#pablo">Edit</a>
         </div>
+      </>
+    ),
+    action: (
+      <>
+        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+          Kích hoạt
+        </Button>
       </>
     ),
   },
@@ -228,11 +276,15 @@ const data = [
           ></Avatar>
           <div className="avatar-info">
             <Title level={5}>Miriam Eric</Title>
-            <p>miriam@mail.com</p>
           </div>
         </Avatar.Group>{" "}
       </>
     ),
+    email: (
+      <>
+        <div className="author-info" />
+        <h4>miriam@mail.com</h4>
+      </>),
     function: (
       <>
         <div className="author-info">
@@ -244,8 +296,8 @@ const data = [
 
     status: (
       <>
-        <Button type="primary" className="tag-primary">
-          ONLINE
+        <Button type="primary" danger>
+          Vô hiệu hóa
         </Button>
       </>
     ),
@@ -253,8 +305,14 @@ const data = [
       <>
         <div className="ant-employed">
           <span>03/04/21</span>
-          <a href="#pablo">Edit</a>
         </div>
+      </>
+    ),
+    action: (
+      <>
+        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+          Kích hoạt
+        </Button>
       </>
     ),
   },
@@ -271,11 +329,15 @@ const data = [
           ></Avatar>
           <div className="avatar-info">
             <Title level={5}>Richard Gran</Title>
-            <p>richard@mail.com</p>
           </div>
         </Avatar.Group>{" "}
       </>
     ),
+    email: (
+      <>
+        <div className="author-info" />
+        <h4>richard@mail.com</h4>
+      </>),
     function: (
       <>
         <div className="author-info">
@@ -287,15 +349,23 @@ const data = [
 
     status: (
       <>
-        <Button className="tag-badge">ONLINE</Button>
+        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+          Kích hoạt
+        </Button>
       </>
     ),
     employed: (
       <>
         <div className="ant-employed">
           <span>23/03/20</span>
-          <a href="#pablo">Edit</a>
         </div>
+      </>
+    ),
+    action: (
+      <>
+        <Button type="primary" danger>
+          Vô hiệu hóa
+        </Button>
       </>
     ),
   },
@@ -313,11 +383,15 @@ const data = [
           ></Avatar>
           <div className="avatar-info">
             <Title level={5}>John Levi</Title>
-            <p>john@mail.com</p>
           </div>
         </Avatar.Group>{" "}
       </>
     ),
+    email: (
+      <>
+        <div className="author-info" />
+        <h4>john@mail.com</h4>
+      </>),
     function: (
       <>
         <div className="author-info">
@@ -329,15 +403,23 @@ const data = [
 
     status: (
       <>
-        <Button className="tag-badge">ONLINE</Button>
+        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+          Kích hoạt
+        </Button>
       </>
     ),
     employed: (
       <>
         <div className="ant-employed">
           <span>14/04/17</span>
-          <a href="#pablo">Edit</a>
         </div>
+      </>
+    ),
+    action: (
+      <>
+        <Button type="primary" danger style={{ marginRight: '10px' }}>
+          Vô hiệu hóa
+        </Button>
       </>
     ),
   },
@@ -597,7 +679,7 @@ function Tables() {
             <Card
               bordered={false}
               className="criclebox tablespace mb-24"
-              title="Authors Table"
+              title="Danh sách tài khoản"
               extra={
                 <>
                   <Radio.Group onChange={onChange} defaultValue="a">
@@ -617,7 +699,7 @@ function Tables() {
               </div>
             </Card>
 
-            <Card
+            {/* <Card
               bordered={false}
               className="criclebox tablespace mb-24"
               title="Projects Table"
@@ -650,7 +732,7 @@ function Tables() {
                   </Button>
                 </Upload>
               </div>
-            </Card>
+            </Card> */}
           </Col>
         </Row>
       </div>
