@@ -1,5 +1,5 @@
 import { Button, Table } from "antd";
-import React from "react";
+import React, { act } from "react";
 import useDialog from "../../hooks/useDialog";
 import AddBranch from "./_components/AddBranch";
 
@@ -8,14 +8,16 @@ const Branches = () => {
     {
       key: "1",
       name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
+      link: "http://abc.com",
+      logo: "http://abc.com",
+      active: "x",
     },
     {
       key: "2",
       name: "John",
-      age: 42,
-      address: "10 Downing Street",
+      link: "http://abc.com",
+      logo: "http://abc.com",
+      active: "x",
     },
   ];
   const columns = [
@@ -25,14 +27,19 @@ const Branches = () => {
       key: "name",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Link",
+      dataIndex: "link",
+      key: "link",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Logo",
+      dataIndex: "logo",
+      key: "logo",
+    },
+    {
+      title: "Active",
+      dataIndex: "active",
+      key: "active",
     },
   ];
 

@@ -8,14 +8,14 @@ const Pharmaceuticals = () => {
     {
       key: "1",
       name: "Mike",
-      age: 32,
-      address: "10 Downing Street",
+      nation: "nation 1",
+      active: "x",
     },
     {
       key: "2",
       name: "John",
-      age: 42,
-      address: "10 Downing Street",
+      nation: "nation 2",
+      active: "x",
     },
   ];
   const columns = [
@@ -25,14 +25,14 @@ const Pharmaceuticals = () => {
       key: "name",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
+      title: "Nation",
+      dataIndex: "nation",
+      key: "nation",
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
+      title: "Active",
+      dataIndex: "active",
+      key: "active",
     },
   ];
 
