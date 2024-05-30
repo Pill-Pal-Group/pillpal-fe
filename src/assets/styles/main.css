@@ -42,6 +42,7 @@ body {
   overflow: auto;
   margin: 0;
   padding: 33px 20px;
+  z-index: 1;
 }
 .layout-dashboard .ant-layout-sider.sider-primary .brand img {
   height: 30px;
@@ -1735,11 +1736,6 @@ ul.ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light.left-nav
   /* .ant-col.mobile-24 {
     margin-bottom: 24px;
   } */
-}
-
-body {
-  overflow: visible !important;
-  width: 100% !important;
 }
 
 .card-info-2 .ant-card-body {

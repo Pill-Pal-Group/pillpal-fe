@@ -203,6 +203,58 @@ function Sidenav({ color }) {
             <span className="label">Products</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="dosages">
+          <NavLink to="/dosages">
+            <span
+              className="icon"
+              style={{
+                background: page === "tables" ? color : "",
+              }}
+            >
+              {tables}
+            </span>
+            <span className="label">Dosages</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="pharmaceuticals">
+          <NavLink to="/pharmaceuticals">
+            <span
+              className="icon"
+              style={{
+                background: page === "tables" ? color : "",
+              }}
+            >
+              {tables}
+            </span>
+            <span className="label">Pharmaceuticals</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="specifications">
+          <NavLink to="/specifications">
+            <span
+              className="icon"
+              style={{
+                background: page === "tables" ? color : "",
+              }}
+            >
+              {tables}
+            </span>
+            <span className="label">Specifications</span>
+          </NavLink>
+        </Menu.Item>
+        <Menu.Item key="branches">
+          <NavLink to="/branches">
+            <span
+              className="icon"
+              style={{
+                background: page === "tables" ? color : "",
+              }}
+            >
+              {tables}
+            </span>
+            <span className="label">Branches</span>
+          </NavLink>
+        </Menu.Item>
         <Menu.Item key="3">
           <NavLink to="/billing">
             <span

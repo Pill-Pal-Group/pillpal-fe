@@ -1,7 +1,9 @@
 import React from "react";
 import "./style.css";
 import ProductCard from "../../components/Cards/ProductCard/ProductCard";
-import { Row } from "antd";
+import { Button, Row } from "antd";
+import useDialog from "../../hooks/useDialog";
+import AddProduct from "./_components/AddProduct";
 
 function Products() {
   const categories = [
@@ -31,23 +33,33 @@ function Products() {
     },
   ];
 
-  return (
-    <div className="container">
-      {categories.map((category, index) => (
-        <div key={index} className="category">
-          <img src={category.icon} alt={category.label} className="icon" />
-          <div className="label">{category.label}</div>
-        </div>
-      ))}
+  const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
 
-      <div className="product-container">
-        <Row gutter={[16, 16]}>
-          {[0, 1, 2, 3, 4, 5].map((i) => (
-            <ProductCard key={i} />
-          ))}
-        </Row>
+  return (
+    <>
+      <Button type="primary" onClick={toggleAddDialog}>
+        Add Medicine
+      </Button>
+
+      <div className="container">
+        {categories.map((category, index) => (
+          <div key={index} className="category">
+            <img src={category.icon} alt={category.label} className="icon" />
+            <div className="label">{category.label}</div>
+          </div>
+        ))}
+
+        <div className="product-container">
+          <Row gutter={[16, 16]}>
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <ProductCard key={i} />
+            ))}
+          </Row>
+        </div>
       </div>
-    </div>
+
+      {openAddDialog && <AddProduct onClose={toggleAddDialog} />}
+    </>
   );
 }
 
