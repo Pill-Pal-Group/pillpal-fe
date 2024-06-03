@@ -45,7 +45,7 @@ body {
   z-index: 1;
 }
 .layout-dashboard .ant-layout-sider.sider-primary .brand img {
-  height: 30px;
+  height: 85px;
 }
 .layout-dashboard .ant-layout-sider.sider-primary hr {
   margin: 18px 0;
@@ -55,6 +55,7 @@ body {
 }
 .layout-dashboard .ant-layout-sider.sider-primary .brand {
   font-weight: 600;
+  text-align: center;
 }
 .layout-dashboard .ant-layout-sider.sider-primary .brand span {
   vertical-align: middle;

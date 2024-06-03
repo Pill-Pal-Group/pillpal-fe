@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://pp-devtest2.azurewebsites.net",
+  baseURL: "https://pp-devtest2.azurewebsites.net/api",
 });
 
 // axiosClient.interceptors.response.use(

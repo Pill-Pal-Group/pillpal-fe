@@ -1,14 +1,4 @@
-/*!
-=========================================================
-* Muse Ant Design Dashboard - v1.0.0
-=========================================================
-* Product Page: https://www.creative-tim.com/product/muse-ant-design-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/muse-ant-design-dashboard/blob/main/LICENSE.md)
-* Coded by Creative Tim
-=========================================================
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
+
 import {
   Row,
   Col,
@@ -21,6 +11,8 @@ import {
   Button,
   Avatar,
   Typography,
+  Space,
+  ConfigProvider,
 } from "antd";
 
 import { ToTopOutlined } from "@ant-design/icons";
@@ -134,7 +126,7 @@ const data = [
     ),
     status: (
       <>
-        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+        <Button type="primary" style={{ padding: '0 22px', background: "#73d13d", borderColor: "#73d13d" }}>
           Kích hoạt
         </Button>
       </>
@@ -151,6 +143,9 @@ const data = [
       <>
         <Button type="primary" danger>
           Vô hiệu hóa
+        </Button>
+        <Button type="primary" style={{marginLeft: '5px', padding: '0 22px'}}>
+          Chỉnh sửa
         </Button>
       </>
     ),
@@ -189,7 +184,7 @@ const data = [
 
     status: (
       <>
-        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+        <Button type="primary" style={{ padding: '0 22px', background: "#73d13d", borderColor: "#73d13d" }}>
           Kích hoạt
         </Button>
       </>
@@ -257,7 +252,7 @@ const data = [
     ),
     action: (
       <>
-        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+        <Button type="primary" style={{ padding: '0 22px', background: "#73d13d", borderColor: "#73d13d" }}>
           Kích hoạt
         </Button>
       </>
@@ -310,7 +305,7 @@ const data = [
     ),
     action: (
       <>
-        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+        <Button type="primary" style={{ padding: '0 22px', background: "#73d13d", borderColor: "#73d13d" }}>
           Kích hoạt
         </Button>
       </>
@@ -349,7 +344,7 @@ const data = [
 
     status: (
       <>
-        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+        <Button type="primary" style={{ padding: '0 22px', background: "#73d13d", borderColor: "#73d13d" }}>
           Kích hoạt
         </Button>
       </>
@@ -400,10 +395,9 @@ const data = [
         </div>
       </>
     ),
-
     status: (
       <>
-        <Button type="primary" style={{ background: "green", borderColor: "green" }}>
+        <Button type="primary" style={{ padding: '0 22px', background: "#73d13d", borderColor: "#73d13d" }}>
           Kích hoạt
         </Button>
       </>
