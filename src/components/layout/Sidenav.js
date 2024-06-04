@@ -2,6 +2,7 @@ import { Button, Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { useState } from "react";
 
 function Sidenav({ color }) {
   const { pathname } = useLocation();
@@ -73,7 +74,52 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
-  const billing = [
+  const pharmaceuticals = [
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        d="M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z"
+        fill={color}
+      ></path>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
+
+  const dosages = [
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      key={0}
+    >
+      <path
+        d="M9 2C8.44772 2 8 2.44772 8 3C8 3.55228 8.44772 4 9 4H11C11.5523 4 12 3.55228 12 3C12 2.44772 11.5523 2 11 2H9Z"
+        fill={color}
+      ></path>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4 5C4 3.89543 4.89543 3 6 3C6 4.65685 7.34315 6 9 6H11C12.6569 6 14 4.65685 14 3C15.1046 3 16 3.89543 16 5V16C16 17.1046 15.1046 18 14 18H6C4.89543 18 4 17.1046 4 16V5ZM7 9C6.44772 9 6 9.44772 6 10C6 10.5523 6.44772 11 7 11H7.01C7.56228 11 8.01 10.5523 8.01 10C8.01 9.44772 7.56228 9 7.01 9H7ZM10 9C9.44772 9 9 9.44772 9 10C9 10.5523 9.44772 11 10 11H13C13.5523 11 14 10.5523 14 10C14 9.44772 13.5523 9 13 9H10ZM7 13C6.44772 13 6 13.4477 6 14C6 14.5523 6.44772 15 7 15H7.01C7.56228 15 8.01 14.5523 8.01 14C8.01 13.4477 7.56228 13 7.01 13H7ZM10 13C9.44772 13 9 13.4477 9 14C9 14.5523 9.44772 15 10 15H13C13.5523 15 14 14.5523 14 14C14 13.4477 13.5523 13 13 13H10Z"
+        fill={color}
+      ></path>
+    </svg>,
+  ];
+
+
+  const specifications = [
     <svg
       width="20"
       height="20"
@@ -95,7 +141,7 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
-  const rtl = [
+  const brand = [
     <svg
       width="20"
       height="20"
@@ -149,11 +195,74 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
+  const items = [
+    {
+      key: '1',
+      label: 'Quản lí thuốc',
+      children: [
+        {
+          key: '11',
+          label: 'Option 1',
+        },
+        {
+          key: '12',
+          label: 'Option 2',
+        },
+        {
+          key: '13',
+          label: 'Option 3',
+        },
+        {
+          key: '14',
+          label: 'Option 4',
+        },
+      ],
+    },
+  ];
+
   const navigate = useHistory();
 
   const onLogout = () => {
     window.localStorage.clear();
     navigate.push("/sign-in");
+  };
+
+  const getLevelKeys = (items1) => {
+    const key = {};
+    const func = (items2, level = 1) => {
+      items2.forEach((item) => {
+        if (item.key) {
+          key[item.key] = level;
+        }
+        if (item.children) {
+          func(item.children, level + 1);
+        }
+      });
+    };
+    func(items1);
+    return key;
+  };
+  const levelKeys = getLevelKeys(items);
+
+  const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
+  const onOpenChange = (openKeys) => {
+    const currentOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1);
+    // open
+    if (currentOpenKey !== undefined) {
+      const repeatIndex = openKeys
+        .filter((key) => key !== currentOpenKey)
+        .findIndex((key) => levelKeys[key] === levelKeys[currentOpenKey]);
+      setStateOpenKeys(
+        openKeys
+          // remove repeat key
+          .filter((_, index) => index !== repeatIndex)
+          // remove current level all child
+          .filter((key) => levelKeys[key] <= levelKeys[currentOpenKey]),
+      );
+    } else {
+      // close
+      setStateOpenKeys(openKeys);
+    }
   };
 
   return (
@@ -174,7 +283,7 @@ function Sidenav({ color }) {
             >
               {dashboard}
             </span>
-            <span className="label">Dashboard</span>
+            <span className="label">Thống kê</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="2">
@@ -187,9 +296,10 @@ function Sidenav({ color }) {
             >
               {tables}
             </span>
-            <span className="label">Tables</span>
+            <span className="label">Tài khoản</span>
           </NavLink>
         </Menu.Item>
+        
         <Menu.Item key="products">
           <NavLink to="/products">
             <span
@@ -200,7 +310,7 @@ function Sidenav({ color }) {
             >
               {tables}
             </span>
-            <span className="label">Products</span>
+            <span className="label">Thuốc</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="dosages">
@@ -208,12 +318,12 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "tables" ? color : "",
+                background: page === "dosages" ? color : "",
               }}
             >
               {tables}
             </span>
-            <span className="label">Dosages</span>
+            <span className="label">Liều Lượng</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="pharmaceuticals">
@@ -221,12 +331,12 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "tables" ? color : "",
+                background: page === "pharmaceuticals" ? color : "",
               }}
             >
               {tables}
             </span>
-            <span className="label">Pharmaceuticals</span>
+            <span className="label">Dược phẩm</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="specifications">
@@ -234,12 +344,12 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "tables" ? color : "",
+                background: page === "specifications" ? color : "",
               }}
             >
               {tables}
             </span>
-            <span className="label">Specifications</span>
+            <span className="label">Thành phần</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="branches">
@@ -247,15 +357,15 @@ function Sidenav({ color }) {
             <span
               className="icon"
               style={{
-                background: page === "tables" ? color : "",
+                background: page === "brand" ? color : "",
               }}
             >
               {tables}
             </span>
-            <span className="label">Branches</span>
+            <span className="label">Thương hiệu</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="3">
+        {/* <Menu.Item key="3">
           <NavLink to="/billing">
             <span
               className="icon"
@@ -280,7 +390,7 @@ function Sidenav({ color }) {
             </span>
             <span className="label">RTL</span>
           </NavLink>
-        </Menu.Item>
+        </Menu.Item> */}
         <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item>
@@ -300,27 +410,10 @@ function Sidenav({ color }) {
         <Menu.Item key="7">
           <div onClick={onLogout}>
             <span className="icon">{signin}</span>
-            <span className="label">Log out</span>
+            <span className="label">Đăng xuất</span>
           </div>
         </Menu.Item>
       </Menu>
-      <div className="aside-footer">
-        <div
-          className="footer-box"
-          style={{
-            background: color,
-          }}
-        >
-          <span className="icon" style={{ color }}>
-            {dashboard}
-          </span>
-          <h6>Need Help?</h6>
-          <p>Please check our docs</p>
-          <Button type="primary" className="ant-btn-sm ant-btn-block">
-            DOCUMENTATION
-          </Button>
-        </div>
-      </div>
     </>
   );
 }
