@@ -137,15 +137,25 @@ function Sidenav({ color }) {
     navigate.push("/sign-in");
   };
 
-  const token = localStorage.getItem("token");
-  const decode = jwtDecode(token);
+  const token = localStorage.getItem("token") || "";
+  let decode = {};
+
+  try {
+    decode = jwtDecode(token);
+  } catch (error) {
+    console.error("Invalid token specified:", error.message);
+  }
 
   const { isAdmin, isManager } = useMemo(() => {
-    const isAdmin = decode.role === "Admin";
-    const isManager = decode.role === "Manager";
-    return { isAdmin, isManager };
-  }, []);
+    let isAdmin = false;
+    let isManager = false;
+    if (decode && decode.role) {
+      isAdmin = decode.role === "Admin";
+      isManager = decode.role === "Manager";
+    }
 
+    return { isAdmin, isManager };
+  }, [decode]);
   return (
     <>
       <div className="brand">
