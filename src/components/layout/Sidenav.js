@@ -137,10 +137,10 @@ function Sidenav({ color }) {
     navigate.push("/sign-in");
   };
 
-  const token = localStorage.getItem("token");
-  const decode = jwtDecode(token);
+  const token = localStorage.getItem("token") || "";
+  const decode = jwtDecode(token) || {};
 
-  const { isAdmin, isManager } = useMemo(() => {
+  const { isAdmin = false, isManager = false } = useMemo(() => {
     const isAdmin = decode.role === "Admin";
     const isManager = decode.role === "Manager";
     return { isAdmin, isManager };
