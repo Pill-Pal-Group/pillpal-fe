@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.png";
 import { jwtDecode } from "jwt-decode";
 import { useMemo } from "react";
 
-function Sidenav({ color }) {
+async function Sidenav({ color }) {
   const { pathname } = useLocation();
   const page = pathname.replace("/", "");
 
@@ -137,7 +137,7 @@ function Sidenav({ color }) {
     navigate.push("/sign-in");
   };
 
-  const token = localStorage.getItem("token") || "";
+  const token = (await localStorage.getItem("token")) || "";
   const decode = jwtDecode(token) || {};
 
   const { isAdmin = false, isManager = false } = useMemo(() => {

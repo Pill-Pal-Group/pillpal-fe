@@ -1,8 +1,8 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-const Protected = ({ children }) => {
-  const token = localStorage.getItem("token");
+const Protected = async ({ children }) => {
+  const token = (await localStorage.getItem("token")) || "";
 
   if (!token) {
     return <Redirect to="/sign-in" />;
