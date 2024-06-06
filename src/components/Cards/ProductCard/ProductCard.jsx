@@ -4,11 +4,11 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import "./style.css";
 const { Meta } = Card;
 
-const ProductCard = () => {
+const ProductCard = ({ data: product }) => {
   const navigate = useHistory();
 
   const navigateToProductDetail = () => {
-    navigate.push("/products/1");
+    navigate.push("/products/" + product.id);
   };
 
   return (
@@ -18,31 +18,24 @@ const ProductCard = () => {
       style={{ cursor: "pointer" }}
     >
       <Badge.Ribbon text="-20%" color="red">
-        <Card
-          hoverable
-          cover={
-            <img
-              alt="Kem La Roche-Posay Effaclar A.I giảm mụn chuyên biệt"
-              src="https://cdn.tgdd.vn/Products/Images/2504/174340/laroche-posay-effaclar-purifying-foaming-gel-200ml-070323-050348-600x600.jpg"
-            />
-          }
-        >
+        <Card hoverable cover={<img src={product.image} />}>
           <Meta
-            title="Kem La Roche-Posay Effaclar A.I giảm mụn chuyên biệt"
+            title={product.medicineName}
             description={
               <>
                 <div className="product-info">
-                  <span className="volume">15ml</span>
-                  <span className="skin-type">Da dầu</span>
+                  <span className="volume">
+                    {product.specification.typeName}
+                  </span>
+                  <span className="skin-type">
+                    {product.specification.detail}
+                  </span>
                 </div>
-                <div className="product-origin">
-                  <span className="origin">Nhập khẩu Pháp</span>
-                  <span className="benefit">Giảm mụn chuyên dụng</span>
-                </div>
-                <div className="product-pricing">
-                  <span className="price">488.000₫</span>
-                  <span className="old-price">610.000₫</span>
-                </div>
+                {product.activeIngredients.map((act) => (
+                  <div className="product-origin" key={act.id}>
+                    <span className="origin">{act.ingredientInformation}</span>
+                  </div>
+                ))}
               </>
             }
           />

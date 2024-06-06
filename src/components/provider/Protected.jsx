@@ -4,9 +4,9 @@ import { Redirect } from "react-router-dom";
 const Protected = ({ children }) => {
   const token = localStorage.getItem("token");
 
-  // if (!token) {
-  //   return <Redirect to="/sign-in" />;
-  // }
+  if (!token) {
+    return <Redirect to="/sign-in" />;
+  }
 
   return children;
 };

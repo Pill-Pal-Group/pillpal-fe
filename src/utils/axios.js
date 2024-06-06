@@ -11,10 +11,18 @@ const axiosClient = axios.create({
 //   },
 //   (err) => {
 //     if (!err.response) {
-//       return alert(err);    
+//       return alert(err);
 //     }
 //     throw err.response.data;
 //   }
 // );
+
+axiosClient.interceptors.request.use((config) => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
+});
 
 export { axiosClient };
