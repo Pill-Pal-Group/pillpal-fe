@@ -195,74 +195,11 @@ function Sidenav({ color }) {
     </svg>,
   ];
 
-  const items = [
-    {
-      key: '1',
-      label: 'Quản lí thuốc',
-      children: [
-        {
-          key: '11',
-          label: 'Option 1',
-        },
-        {
-          key: '12',
-          label: 'Option 2',
-        },
-        {
-          key: '13',
-          label: 'Option 3',
-        },
-        {
-          key: '14',
-          label: 'Option 4',
-        },
-      ],
-    },
-  ];
-
   const navigate = useHistory();
 
   const onLogout = () => {
     window.localStorage.clear();
     navigate.push("/sign-in");
-  };
-
-  const getLevelKeys = (items1) => {
-    const key = {};
-    const func = (items2, level = 1) => {
-      items2.forEach((item) => {
-        if (item.key) {
-          key[item.key] = level;
-        }
-        if (item.children) {
-          func(item.children, level + 1);
-        }
-      });
-    };
-    func(items1);
-    return key;
-  };
-  const levelKeys = getLevelKeys(items);
-
-  const [stateOpenKeys, setStateOpenKeys] = useState(['2', '23']);
-  const onOpenChange = (openKeys) => {
-    const currentOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1);
-    // open
-    if (currentOpenKey !== undefined) {
-      const repeatIndex = openKeys
-        .filter((key) => key !== currentOpenKey)
-        .findIndex((key) => levelKeys[key] === levelKeys[currentOpenKey]);
-      setStateOpenKeys(
-        openKeys
-          // remove repeat key
-          .filter((_, index) => index !== repeatIndex)
-          // remove current level all child
-          .filter((key) => levelKeys[key] <= levelKeys[currentOpenKey]),
-      );
-    } else {
-      // close
-      setStateOpenKeys(openKeys);
-    }
   };
 
   return (
@@ -299,7 +236,6 @@ function Sidenav({ color }) {
             <span className="label">Tài khoản</span>
           </NavLink>
         </Menu.Item>
-        
         <Menu.Item key="products">
           <NavLink to="/products">
             <span
@@ -365,32 +301,6 @@ function Sidenav({ color }) {
             <span className="label">Thương hiệu</span>
           </NavLink>
         </Menu.Item>
-        {/* <Menu.Item key="3">
-          <NavLink to="/billing">
-            <span
-              className="icon"
-              style={{
-                background: page === "billing" ? color : "",
-              }}
-            >
-              {billing}
-            </span>
-            <span className="label">Billing</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="4">
-          <NavLink to="/rtl">
-            <span
-              className="icon"
-              style={{
-                background: page === "rtl" ? color : "",
-              }}
-            >
-              {rtl}
-            </span>
-            <span className="label">RTL</span>
-          </NavLink>
-        </Menu.Item> */}
         <Menu.Item className="menu-item-header" key="5">
           Account Pages
         </Menu.Item>

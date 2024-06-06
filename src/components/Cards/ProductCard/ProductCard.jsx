@@ -8,10 +8,10 @@ const ProductCard = ({ medicines }) => {
   const navigate = useHistory();
 
   const navigateToProductDetail = () => {
-    navigate.push("/products/1");
-  };
+    navigate.push(`/products/${medicines.id}`);
+  }
 
-  console.log(medicines.pharmaceuticalCompanies.companyName);
+  console.log('navigateToProductDetail', navigateToProductDetail);
 
   return (
     <Col
