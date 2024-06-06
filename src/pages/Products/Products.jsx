@@ -4,6 +4,7 @@ import ProductCard from "../../components/Cards/ProductCard/ProductCard";
 import { Button, Row } from "antd";
 import useDialog from "../../hooks/useDialog";
 import AddProduct from "./_components/AddProduct";
+import { useGetListMedicine } from "../../hooks/useMedicineApi";
 
 function Products() {
   const categories = [
@@ -35,6 +36,8 @@ function Products() {
 
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
 
+  const { data = [], error, isLoading } = useGetListMedicine();
+
   return (
     <>
       <Button type="primary" onClick={toggleAddDialog}>
@@ -49,11 +52,13 @@ function Products() {
           </div>
         ))}
 
+        {isLoading && <div>Loading...</div>}
         <div className="product-container">
           <Row gutter={[16, 16]}>
-            {[0, 1, 2, 3, 4, 5].map((i) => (
-              <ProductCard key={i} />
-            ))}
+            {data &&
+              data.map((item, index) => (
+                <ProductCard key={index} data={item} />
+              ))}
           </Row>
         </div>
       </div>

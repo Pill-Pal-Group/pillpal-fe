@@ -2,6 +2,8 @@ import { Button, Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { jwtDecode } from "jwt-decode";
+import { useMemo } from "react";
 
 function Sidenav({ color }) {
   const { pathname } = useLocation();
@@ -135,6 +137,15 @@ function Sidenav({ color }) {
     navigate.push("/sign-in");
   };
 
+  const token = localStorage.getItem("token");
+  const decode = jwtDecode(token);
+
+  const { isAdmin, isManager } = useMemo(() => {
+    const isAdmin = decode.role === "Admin";
+    const isManager = decode.role === "Manager";
+    return { isAdmin, isManager };
+  }, []);
+
   return (
     <>
       <div className="brand">
@@ -156,84 +167,90 @@ function Sidenav({ color }) {
             <span className="label">Dashboard</span>
           </NavLink>
         </Menu.Item>
-        <Menu.Item key="2">
-          <NavLink to="/tables">
-            <span
-              className="icon"
-              style={{
-                background: page === "tables" ? color : "",
-              }}
-            >
-              {tables}
-            </span>
-            <span className="label">Tables</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="products">
-          <NavLink to="/products">
-            <span
-              className="icon"
-              style={{
-                background: page === "tables" ? color : "",
-              }}
-            >
-              {tables}
-            </span>
-            <span className="label">Products</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="dosages">
-          <NavLink to="/dosages">
-            <span
-              className="icon"
-              style={{
-                background: page === "tables" ? color : "",
-              }}
-            >
-              {tables}
-            </span>
-            <span className="label">Dosages</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="pharmaceuticals">
-          <NavLink to="/pharmaceuticals">
-            <span
-              className="icon"
-              style={{
-                background: page === "tables" ? color : "",
-              }}
-            >
-              {tables}
-            </span>
-            <span className="label">Pharmaceuticals</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="specifications">
-          <NavLink to="/specifications">
-            <span
-              className="icon"
-              style={{
-                background: page === "tables" ? color : "",
-              }}
-            >
-              {tables}
-            </span>
-            <span className="label">Specifications</span>
-          </NavLink>
-        </Menu.Item>
-        <Menu.Item key="branches">
-          <NavLink to="/branches">
-            <span
-              className="icon"
-              style={{
-                background: page === "tables" ? color : "",
-              }}
-            >
-              {tables}
-            </span>
-            <span className="label">Branches</span>
-          </NavLink>
-        </Menu.Item>
+        {isAdmin && (
+          <Menu.Item key="2">
+            <NavLink to="/tables">
+              <span
+                className="icon"
+                style={{
+                  background: page === "tables" ? color : "",
+                }}
+              >
+                {tables}
+              </span>
+              <span className="label">Managers</span>
+            </NavLink>
+          </Menu.Item>
+        )}
+        {isManager && (
+          <>
+            <Menu.Item key="products">
+              <NavLink to="/products">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Products</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="dosages">
+              <NavLink to="/dosages">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Dosages</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="pharmaceuticals">
+              <NavLink to="/pharmaceuticals">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Pharmaceuticals</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="specifications">
+              <NavLink to="/specifications">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Specifications</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="branches">
+              <NavLink to="/branches">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Branches</span>
+              </NavLink>
+            </Menu.Item>
+          </>
+        )}
         <Menu.Item key="3">
           <NavLink to="/billing">
             <span

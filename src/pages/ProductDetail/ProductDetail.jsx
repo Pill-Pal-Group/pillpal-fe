@@ -1,9 +1,16 @@
 import { Card, Col, Descriptions, Row, Table, Typography } from "antd";
 import React from "react";
 import "./style.css";
+import { useGetMedicine } from "../../hooks/useMedicineApi";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 const { Title, Text } = Typography;
 
 function ProductDetail() {
+  const { id } = useParams();
+
+  const { data, isLoading } = useGetMedicine(id);
+
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className="product-details-container">
       <Title
@@ -15,50 +22,31 @@ function ProductDetail() {
           padding: "10px 0",
         }}
       >
-        Augmentin 625mg
+        {data.medicineName}
       </Title>
 
       <Row gutter={[16, 16]} justify="center" style={{ margin: "20px 0" }}>
         <Col span={8}>
-          <Card
-            hoverable
-            cover={
-              <img
-                alt="Augmentin 625mg"
-                src="https://cdn.tgdd.vn/Products/Images/2504/174340/laroche-posay-effaclar-purifying-foaming-gel-200ml-070323-050348-600x600.jpg"
-              />
-            }
-          />
+          <Card hoverable cover={<img src={data.image} />} />
         </Col>
         <Col span={16}>
           <Descriptions bordered column={1} size="small">
             <Descriptions.Item label="Tên Thuốc">
-              Augmentin 625mg
-            </Descriptions.Item>
-            <Descriptions.Item label="Số Đăng Ký">
-              VN-20619-16
+              {data.medicineName}
             </Descriptions.Item>
             <Descriptions.Item label="Hoạt Chất - Nồng độ/ hàm lượng">
-              Amoxicillin (dưới dạng Amoxicillin trihydrate): 500mg
-              <br />
-              Acid clavulanic (dưới dạng Kali clavulanate): 125mg
+              {/* {data.activeIngredients.map(v=> v.ingredientInformation).join("<br />")}               */}
             </Descriptions.Item>
             <Descriptions.Item label="Dạng Bào Chế">
-              Viên nén bao phim
+              {data.dosageForms.map((v) => v.formName).join(", ")}
             </Descriptions.Item>
             <Descriptions.Item label="Quy cách đóng gói">
-              Hộp 2 vỉ x 7 viên
+              {data.specification.typeName} {data.specification.detail}
             </Descriptions.Item>
-            <Descriptions.Item label="Hạn sử dụng">24 tháng</Descriptions.Item>
             <Descriptions.Item label="Công ty Sản Xuất">
-              SmithKline Beecham Pharmaceuticals
-              <br />
-              Clarendon Road, Worthing, West Sussex BN14 8QH, UK
-            </Descriptions.Item>
-            <Descriptions.Item label="Công ty Đăng Ký">
-              GlaxoSmithKline Pte. Ltd.
-              <br />
-              150 Beach Road, # 21-00 Gateway West, Singapore 189720 Singapore
+              {data.pharmaceuticalCompanies
+                .map((v) => v.companyName)
+                .join("<br />")}
             </Descriptions.Item>
           </Descriptions>
         </Col>

@@ -108,8 +108,8 @@ const SignIn = () => {
     e.preventDefault();
     mutate(data, {
       onSuccess: (res) => {
-        if (res?.data?.token) {
-          localStorage.setItem("token", res?.data?.token);
+        if (res?.data?.accessToken) {
+          localStorage.setItem("token", res?.data?.accessToken);
           localStorage.setItem("email", data.email);
           navigate.push("/");
         } else {
