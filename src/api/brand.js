@@ -4,3 +4,8 @@ export const getBrandList = async () => {
   const res = await axiosClient.get("/api/brands");
   return res.data;
 };
+
+export const postCreateBrand = async (body) => {
+  const res = await axiosClient.post("/api/brands", body);
+  return res.data;
+};

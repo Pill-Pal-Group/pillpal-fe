@@ -1,11 +1,28 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import Dialog from "../../../components/dialog";
+import { useCreateBrand } from "../../../hooks/useBrandApi";
+import { useQueryClient } from "react-query";
 const AddBranch = ({ onClose }) => {
+  const queryClient = useQueryClient();
+  const [body, setBody] = useState({ brandUrl: "", brandLogo: "" });
+
+  const { mutate, isLoading } = useCreateBrand();
+
+  const onCreate = () => {
+    mutate(body, {
+      onSuccess: () => {
+        queryClient.invalidateQueries("getBrandList");
+        onClose();
+      },
+    });
+  };
+
   return (
     <Dialog onClose={onClose}>
       <h2 style={{ textAlign: "center" }}>ADD BRANCH</h2>
       <Form
+        onFinish={onCreate}
         name="basic"
         labelCol={{
           span: 4,
@@ -21,27 +38,16 @@ const AddBranch = ({ onClose }) => {
         }}
         autoComplete="off"
       >
-        <Form.Item label="Name" name="Name">
-          <Input />
-        </Form.Item>
-
         <Form.Item label="Link" name="Link">
-          <Input />
+          <Input
+            onChange={(e) => setBody({ ...body, brandUrl: e.target.value })}
+          />
         </Form.Item>
 
         <Form.Item label="Logo" name="Logo">
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="active"
-          valuePropName="checked"
-          wrapperCol={{
-            offset: 8,
-            span: 16,
-          }}
-        >
-          <Checkbox>Active</Checkbox>
+          <Input
+            onChange={(e) => setBody({ ...body, brandLogo: e.target.value })}
+          />
         </Form.Item>
         <Form.Item
           wrapperCol={{
@@ -49,7 +55,7 @@ const AddBranch = ({ onClose }) => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isLoading}>
             Submit
           </Button>
         </Form.Item>
