@@ -1,10 +1,11 @@
-import React from "react";
-import { useDeleteBrand, useGetBrandById } from "../../../hooks/useBrandApi";
-import Dialog from "../../../components/dialog";
 import { Button } from "antd";
-import useDialog from "../../../hooks/useDialog";
-import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
+import React from "react";
 import { useQueryClient } from "react-query";
+import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
+import Dialog from "../../../components/dialog";
+import { useDeleteBrand, useGetBrandById } from "../../../hooks/useBrandApi";
+import useDialog from "../../../hooks/useDialog";
+import AddBranch from "./AddBrand";
 
 const DetailBrand = ({ id, onClose }) => {
   const queryClient = useQueryClient();
@@ -12,6 +13,7 @@ const DetailBrand = ({ id, onClose }) => {
   const { isLoading, data } = useGetBrandById(id);
   const { isLoading: deleteLoading, mutate } = useDeleteBrand(id);
   const { isShow: openConfirm, toggleDialog: toggleConfirm } = useDialog();
+  const { isShow: openUpdate, toggleDialog: toggleUpdate } = useDialog();
 
   const OnDelete = () => {
     mutate(undefined, {
@@ -42,7 +44,7 @@ const DetailBrand = ({ id, onClose }) => {
           <p>Brand URL: {data?.brandUrl}</p>
           <p>Brand Code: {data?.brandCode}</p>
           <div style={{ display: "flex", gap: "20px" }}>
-            <Button type="primary" onClick={() => onClose()}>
+            <Button type="primary" onClick={toggleUpdate}>
               Update
             </Button>
             <Button type="danger" onClick={toggleConfirm}>
@@ -60,6 +62,8 @@ const DetailBrand = ({ id, onClose }) => {
           isLoading={deleteLoading}
         />
       )}
+
+      {openUpdate && <AddBranch onClose={toggleUpdate} id={id} />}
     </Dialog>
   );
 };
