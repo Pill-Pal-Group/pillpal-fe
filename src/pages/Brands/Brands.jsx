@@ -1,8 +1,9 @@
 import { Button, Table } from "antd";
-import React, { act, useMemo } from "react";
+import React, { act, useMemo, useState } from "react";
 import useDialog from "../../hooks/useDialog";
 import AddBrand from "./_components/AddBrand";
 import { useGetBrandList } from "../../hooks/useBrandApi";
+import DetailBrand from "./_components/DetailBrand";
 
 const Brands = () => {
   const columns = [
@@ -29,6 +30,7 @@ const Brands = () => {
   ];
 
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
+  const [detailSelected, setDetailSelected] = useState(null);
   const { isLoading, data = [] } = useGetBrandList();
 
   const dataSource = useMemo(() => {
@@ -52,8 +54,19 @@ const Brands = () => {
       >
         Add Branch
       </Button>
-      <Table dataSource={dataSource} columns={columns} loading={isLoading} />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        loading={isLoading}
+        onRow={(r) => ({ onClick: () => setDetailSelected(r.id) })}
+      />
       {openAddDialog && <AddBrand onClose={toggleAddDialog} />}
+      {Boolean(detailSelected) && (
+        <DetailBrand
+          id={detailSelected}
+          onClose={() => setDetailSelected(null)}
+        />
+      )}
     </div>
   );
 };

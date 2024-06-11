@@ -9,3 +9,8 @@ export const postCreateBrand = async (body) => {
   const res = await axiosClient.post("/api/brands", body);
   return res.data;
 };
+
+export const getBrandById = async (id) => {
+  const res = await axiosClient.get(`/api/brands/${id}`);
+  return res.data;
+};
