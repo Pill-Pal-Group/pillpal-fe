@@ -246,8 +246,8 @@ function Sidenav({ color }) {
                 <span className="label">Specifications</span>
               </NavLink>
             </Menu.Item>
-            <Menu.Item key="branches">
-              <NavLink to="/branches">
+            <Menu.Item key="brands">
+              <NavLink to="/brands">
                 <span
                   className="icon"
                   style={{
@@ -256,7 +256,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Branches</span>
+                <span className="label">Brands</span>
               </NavLink>
             </Menu.Item>
           </>

@@ -1,9 +1,9 @@
 import { Button, Table } from "antd";
 import React, { act } from "react";
 import useDialog from "../../hooks/useDialog";
-import AddBranch from "./_components/AddBranch";
+import AddBrand from "./_components/AddBrand";
 
-const Branches = () => {
+const Brands = () => {
   const dataSource = [
     {
       key: "1",
@@ -55,9 +55,9 @@ const Branches = () => {
         Add Branch
       </Button>
       <Table dataSource={dataSource} columns={columns} />
-      {openAddDialog && <AddBranch onClose={toggleAddDialog} />}
+      {openAddDialog && <AddBrand onClose={toggleAddDialog} />}
     </div>
   );
 };
 
-export default Branches;
+export default Brands;

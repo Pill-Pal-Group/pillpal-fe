@@ -6,7 +6,7 @@ import Main from "./components/layout/Main";
 import Protected from "./components/provider/Protected";
 import "./global.css";
 import Billing from "./pages/Billing";
-import Branches from "./pages/Branches/Branches";
+import Brands from "./pages/Brands/Brands";
 import Dosages from "./pages/Dosages/Dosages";
 import Home from "./pages/Home";
 import Pharmaceuticals from "./pages/Pharmaceuticals/Pharmaceuticals";
@@ -32,7 +32,7 @@ function App() {
             <Route exact path="/dosages" component={Dosages} />
             <Route exact path="/pharmaceuticals" component={Pharmaceuticals} />
             <Route exact path="/specifications" component={Specifications} />
-            <Route exact path="/branches" component={Branches} />
+            <Route exact path="/brands" component={Brands} />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/rtl" component={Rtl} />
             <Route exact path="/profile" component={Profile} />
