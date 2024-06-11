@@ -1,10 +1,26 @@
 import React from "react";
-import { useGetBrandById } from "../../../hooks/useBrandApi";
+import { useDeleteBrand, useGetBrandById } from "../../../hooks/useBrandApi";
 import Dialog from "../../../components/dialog";
 import { Button } from "antd";
+import useDialog from "../../../hooks/useDialog";
+import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
+import { useQueryClient } from "react-query";
 
 const DetailBrand = ({ id, onClose }) => {
+  const queryClient = useQueryClient();
+
   const { isLoading, data } = useGetBrandById(id);
+  const { isLoading: deleteLoading, mutate } = useDeleteBrand(id);
+  const { isShow: openConfirm, toggleDialog: toggleConfirm } = useDialog();
+
+  const OnDelete = () => {
+    mutate(undefined, {
+      onSuccess: () => {
+        queryClient.invalidateQueries("getBrandList");
+        onClose();
+      },
+    });
+  };
 
   return (
     <Dialog onClose={onClose}>
@@ -29,11 +45,20 @@ const DetailBrand = ({ id, onClose }) => {
             <Button type="primary" onClick={() => onClose()}>
               Update
             </Button>
-            <Button type="danger" onClick={() => onClose()}>
+            <Button type="danger" onClick={toggleConfirm}>
               Delete
             </Button>
           </div>
         </div>
+      )}
+      {openConfirm && (
+        <ConfirmDialog
+          content={"Are you sure?"}
+          onConfirmed={OnDelete}
+          title={"Delete Brand"}
+          onClose={toggleConfirm}
+          isLoading={deleteLoading}
+        />
       )}
     </Dialog>
   );

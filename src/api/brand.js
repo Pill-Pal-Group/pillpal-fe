@@ -14,3 +14,8 @@ export const getBrandById = async (id) => {
   const res = await axiosClient.get(`/api/brands/${id}`);
   return res.data;
 };
+
+export const deleteBrand = async (id) => {
+  const res = await axiosClient.delete(`/api/brands/${id}`);
+  return res.data;
+};
