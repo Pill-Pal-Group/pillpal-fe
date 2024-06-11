@@ -1,25 +1,10 @@
 import { Button, Table } from "antd";
-import React, { act } from "react";
+import React, { act, useMemo } from "react";
 import useDialog from "../../hooks/useDialog";
 import AddBrand from "./_components/AddBrand";
+import { useGetBrandList } from "../../hooks/useBrandApi";
 
 const Brands = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      link: "http://abc.com",
-      logo: "http://abc.com",
-      active: "x",
-    },
-    {
-      key: "2",
-      name: "John",
-      link: "http://abc.com",
-      logo: "http://abc.com",
-      active: "x",
-    },
-  ];
   const columns = [
     {
       title: "Name",
@@ -44,6 +29,19 @@ const Brands = () => {
   ];
 
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
+  const { isLoading, data = [] } = useGetBrandList();
+
+  const dataSource = useMemo(() => {
+    return data.map((item) => {
+      return {
+        ...item,
+        name: item.brandCode,
+        link: item.brandUrl,
+        logo: <img src={item.brandLogo} style={{ width: 70 }} />,
+        key: item._id,
+      };
+    });
+  }, [data]);
 
   return (
     <div>
@@ -54,7 +52,7 @@ const Brands = () => {
       >
         Add Branch
       </Button>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={dataSource} columns={columns} loading={isLoading} />
       {openAddDialog && <AddBrand onClose={toggleAddDialog} />}
     </div>
   );
