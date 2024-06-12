@@ -17,30 +17,28 @@ const ProductCard = ({ data: product }) => {
       onClick={navigateToProductDetail}
       style={{ cursor: "pointer" }}
     >
-      <Badge.Ribbon text="-20%" color="red">
-        <Card hoverable cover={<img src={product.image} />}>
-          <Meta
-            title={product.medicineName}
-            description={
-              <>
-                <div className="product-info">
-                  <span className="volume">
-                    {product.specification.typeName}
-                  </span>
-                  <span className="skin-type">
-                    {product.specification.detail}
-                  </span>
+      <Card hoverable cover={<img src={product.image} />}>
+        <Meta
+          title={product.medicineName}
+          description={
+            <>
+              <div className="product-info">
+                <span className="volume">
+                  {product.specification?.typeName}
+                </span>
+                <span className="skin-type">
+                  {product.specification?.detail}
+                </span>
+              </div>
+              {product.activeIngredients.map((act) => (
+                <div className="product-origin" key={act.id}>
+                  <span className="origin">{act.ingredientInformation}</span>
                 </div>
-                {product.activeIngredients.map((act) => (
-                  <div className="product-origin" key={act.id}>
-                    <span className="origin">{act.ingredientInformation}</span>
-                  </div>
-                ))}
-              </>
-            }
-          />
-        </Card>
-      </Badge.Ribbon>
+              ))}
+            </>
+          }
+        />
+      </Card>
     </Col>
   );
 };
