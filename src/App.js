@@ -17,6 +17,7 @@ import Rtl from "./pages/Rtl";
 import SignIn from "./pages/SignIn";
 import Specifications from "./pages/Specifications/Specifications";
 import Tables from "./pages/Tables";
+import ActiveIngredients from "./pages/ActiveIngredients/ActiveIngredients";
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
             <Route exact path="/pharmaceuticals" component={Pharmaceuticals} />
             <Route exact path="/specifications" component={Specifications} />
             <Route exact path="/brands" component={Brands} />
+            <Route
+              exact
+              path="/active-ingredient"
+              component={ActiveIngredients}
+            />
             <Route exact path="/billing" component={Billing} />
             <Route exact path="/rtl" component={Rtl} />
             <Route exact path="/profile" component={Profile} />

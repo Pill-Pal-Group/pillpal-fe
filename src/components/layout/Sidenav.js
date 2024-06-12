@@ -259,6 +259,19 @@ function Sidenav({ color }) {
                 <span className="label">Brands</span>
               </NavLink>
             </Menu.Item>
+            <Menu.Item key="active-ingredient">
+              <NavLink to="/active-ingredient">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Active Ingredient</span>
+              </NavLink>
+            </Menu.Item>
           </>
         )}
         <Menu.Item key="3">
