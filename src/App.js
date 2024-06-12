@@ -19,6 +19,7 @@ import Specifications from "./pages/Specifications/Specifications";
 import Tables from "./pages/Tables";
 import ActiveIngredients from "./pages/ActiveIngredients/ActiveIngredients";
 import Nations from "./pages/Nations/Nations";
+import Categories from "./pages/Categories/Categories";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route exact path="/specifications" component={Specifications} />
             <Route exact path="/brands" component={Brands} />
             <Route exact path="/nation" component={Nations} />
+            <Route exact path="/categories" component={Categories} />
             <Route
               exact
               path="/active-ingredient"
