@@ -8,10 +8,15 @@ import {
 } from "../api/nation";
 
 export const useGetNationList = () =>
-  useQuery(["getNationList"], () => getNationList());
+  useQuery(["getNationList"], () => getNationList(), {
+    refetchOnWindowFocus: false,
+  });
 
 export const useGetNationById = (id) =>
-  useQuery(["getNationById", id], () => getNationById(id));
+  useQuery(["getNationById", id], () => getNationById(id), {
+    refetchOnWindowFocus: false,
+    enabled: Boolean(id),
+  });
 
 export const useCreateNation = () =>
   useMutation((body) => postCreateNation(body));

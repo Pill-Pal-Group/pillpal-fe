@@ -8,10 +8,15 @@ import {
 } from "../api/pharmaceutical";
 
 export const useGetPharmaceuticalList = () =>
-  useQuery(["getPharmaceuticalList"], () => getPharmaceuticalList());
+  useQuery(["getPharmaceuticalList"], () => getPharmaceuticalList(), {
+    refetchOnWindowFocus: false,
+  });
 
 export const useGetPharmaceuticalById = (id) =>
-  useQuery(["getPharmaceuticalById", id], () => getPharmaceuticalById(id));
+  useQuery(["getPharmaceuticalById", id], () => getPharmaceuticalById(id), {
+    refetchOnWindowFocus: false,
+    enabled: Boolean(id),
+  });
 
 export const useCreatePharmaceutical = () =>
   useMutation((body) => postCreatePharmaceutical(body));
