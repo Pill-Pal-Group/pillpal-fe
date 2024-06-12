@@ -8,10 +8,15 @@ import {
 } from "../api/specification";
 
 export const useGetSpecificationList = () =>
-  useQuery("getSpecificationList", () => getSpecificationList());
+  useQuery("getSpecificationList", () => getSpecificationList(), {
+    refetchOnWindowFocus: false,
+  });
 
 export const useGetSpecificationById = (id) =>
-  useQuery(["getSpecificationById", id], () => getSpecificationById(id));
+  useQuery(["getSpecificationById", id], () => getSpecificationById(id), {
+    refetchOnWindowFocus: false,
+    enabled: Boolean(id),
+  });
 
 export const useCreateSpecification = () =>
   useMutation((body) => postCreateSpecification(body));

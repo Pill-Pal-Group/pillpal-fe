@@ -1,21 +1,11 @@
-import { Button, Table } from "antd";
-import React from "react";
+import { Button, Spin, Table } from "antd";
+import React, { useMemo, useState } from "react";
 import useDialog from "../../hooks/useDialog";
 import AddDosage from "./_components/AddDosage";
+import { useGetDosageList } from "../../hooks/useDosageApi";
+import DetailDosage from "./_components/DetailDosage";
 
 const Dosages = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      active: "x",
-    },
-    {
-      key: "2",
-      name: "John",
-      active: "x",
-    },
-  ];
   const columns = [
     {
       title: "Name",
@@ -29,7 +19,18 @@ const Dosages = () => {
     },
   ];
 
+  const [selectedDetail, setSelectedDetail] = useState(null);
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
+  const { data = [], isLoading } = useGetDosageList();
+
+  const dataSource = useMemo(() => {
+    return data.map((item) => {
+      return {
+        id: item.id,
+        name: item.formName,
+      };
+    });
+  }, [data]);
 
   return (
     <div>
@@ -40,8 +41,21 @@ const Dosages = () => {
       >
         Add Dosage
       </Button>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        loading={{ indicator: <Spin />, spinning: isLoading }}
+        onRow={(row) => ({
+          onClick: () => setSelectedDetail(row.id),
+        })}
+      />
       {openAddDialog && <AddDosage onClose={toggleAddDialog} />}
+      {Boolean(selectedDetail) && (
+        <DetailDosage
+          id={selectedDetail}
+          onClose={() => setSelectedDetail(null)}
+        />
+      )}
     </div>
   );
 };
