@@ -188,7 +188,7 @@ function Sidenav({ color }) {
               >
                 {tables}
               </span>
-              <span className="label">Managers</span>
+              <span className="label">Người quản lý</span>
             </NavLink>
           </Menu.Item>
         )}
@@ -204,7 +204,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Products</span>
+                <span className="label">Thuốc</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="dosages">
@@ -217,7 +217,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Dosages</span>
+                <span className="label">Liều lượng</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="pharmaceuticals">
@@ -230,7 +230,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Pharmaceuticals</span>
+                <span className="label">Công ty dược phẩm</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="specifications">
@@ -243,7 +243,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Specifications</span>
+                <span className="label">Đặc tính</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="brands">
@@ -256,7 +256,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Brands</span>
+                <span className="label">Thương hiệu</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="active-ingredient">
@@ -269,7 +269,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Active Ingredient</span>
+                <span className="label">Thành phần hoạt chất</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="nation">
@@ -282,7 +282,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Nation</span>
+                <span className="label">Quốc gia</span>
               </NavLink>
             </Menu.Item>
             <Menu.Item key="categories">
@@ -295,7 +295,7 @@ function Sidenav({ color }) {
                 >
                   {tables}
                 </span>
-                <span className="label">Category</span>
+                <span className="label">Danh mục</span>
               </NavLink>
             </Menu.Item>
           </>
