@@ -7,31 +7,39 @@ import {
   useGetSpecificationById,
   useUpdateSpecification,
 } from "../../../hooks/useSpecificationApi";
-const AddSpecification = ({ onClose, id = null }) => {
+import {
+  useCreateNation,
+  useGetNationById,
+  useUpdateNation,
+} from "../../../hooks/useNationApi";
+import {
+  useCreateCategory,
+  useGetCategoryById,
+  useUpdateCategory,
+} from "../../../hooks/useCategoryApi";
+const AddCategory = ({ onClose, id = null }) => {
   const queryClient = useQueryClient();
 
-  // API: CREATE SPECIFICATION
+  // API: CREATE NATION
   const { mutate: createMutate, isLoading: createLoading } =
-    useCreateSpecification();
+    useCreateCategory();
 
-  // API: UPDATE SPECIFICATION
+  // API: UPDATE NATION
   const { mutate: updateMutate, isLoading: updateLoading } =
-    useUpdateSpecification(id);
+    useUpdateCategory(id);
 
-  // API: GET DETAIL SPECIFICATION
-  const { data: initData, isLoading: initLoading } =
-    useGetSpecificationById(id);
+  // API: GET DETAIL NATION
+  const { data: initData, isLoading: initLoading } = useGetCategoryById(id);
 
   const [form] = Form.useForm();
   const [body, setBody] = useState({
-    typeName: "",
-    detail: "",
+    categoryName: "",
   });
 
   useEffect(() => {
     if (id && initData) {
       setBody(initData);
-      form.setFieldsValue(initData); // Explicitly set form values
+      form.setFieldsValue(initData);
     }
   }, [id, initData]);
 
@@ -39,15 +47,15 @@ const AddSpecification = ({ onClose, id = null }) => {
     if (id) {
       updateMutate(body, {
         onSuccess: () => {
-          queryClient.invalidateQueries("getSpecificationList");
-          queryClient.invalidateQueries(["getSpecificationById", id]);
+          queryClient.invalidateQueries("getCategoryList");
+          queryClient.invalidateQueries(["getCategoryById", id]);
           onClose();
         },
       });
     } else {
       createMutate(body, {
         onSuccess: () => {
-          queryClient.invalidateQueries("getSpecificationList");
+          queryClient.invalidateQueries("getCategoryList");
           onClose();
         },
       });
@@ -56,7 +64,7 @@ const AddSpecification = ({ onClose, id = null }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>ADD SPECIFICATION</h2>
+      <h2 style={{ textAlign: "center" }}>{id ? "UPDATE" : "ADD"} CATEGORY</h2>
       <Form
         form={form}
         onFinish={OnSubmit}
@@ -75,15 +83,9 @@ const AddSpecification = ({ onClose, id = null }) => {
         }}
         autoComplete="off"
       >
-        <Form.Item label="Name" name="typeName">
+        <Form.Item label="Name" name="categoryName">
           <Input
-            onChange={(e) => setBody({ ...body, typeName: e.target.value })}
-          />
-        </Form.Item>
-
-        <Form.Item label="Detail" name="detail">
-          <Input
-            onChange={(e) => setBody({ ...body, detail: e.target.value })}
+            onChange={(e) => setBody({ ...body, categoryName: e.target.value })}
           />
         </Form.Item>
 
@@ -102,4 +104,4 @@ const AddSpecification = ({ onClose, id = null }) => {
   );
 };
 
-export default AddSpecification;
+export default AddCategory;

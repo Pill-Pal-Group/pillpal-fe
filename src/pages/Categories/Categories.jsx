@@ -1,35 +1,30 @@
 import { Button, Spin, Table } from "antd";
 import React, { useMemo, useState } from "react";
+import { useGetCategoryList } from "../../hooks/useCategoryApi";
 import useDialog from "../../hooks/useDialog";
-import AddDosage from "./_components/AddDosage";
-import { useGetDosageList } from "../../hooks/useDosageApi";
-import DetailDosage from "./_components/DetailDosage";
+import AddNation from "./_components/AddCategory";
+import DetailCategory from "./_components/DetailCategory";
 
-const Dosages = () => {
+const Categories = () => {
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Code",
+      dataIndex: "categoryCode",
+      key: "categoryCode",
     },
     {
-      title: "Active",
-      dataIndex: "active",
-      key: "active",
+      title: "Name",
+      dataIndex: "categoryName",
+      key: "categoryName",
     },
   ];
 
   const [selectedDetail, setSelectedDetail] = useState(null);
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
-  const { data = [], isLoading } = useGetDosageList();
+  const { data = [], isLoading } = useGetCategoryList();
 
   const dataSource = useMemo(() => {
-    return data.map((item) => {
-      return {
-        id: item.id,
-        name: item.formName,
-      };
-    });
+    return data.map((item) => ({ ...item }));
   }, [data]);
 
   return (
@@ -39,7 +34,7 @@ const Dosages = () => {
         style={{ marginBottom: 16 }}
         onClick={toggleAddDialog}
       >
-        Add Dosage
+        Add Category
       </Button>
       <Table
         dataSource={dataSource}
@@ -49,9 +44,9 @@ const Dosages = () => {
           onClick: () => setSelectedDetail(row.id),
         })}
       />
-      {openAddDialog && <AddDosage onClose={toggleAddDialog} />}
+      {openAddDialog && <AddNation onClose={toggleAddDialog} />}
       {Boolean(selectedDetail) && (
-        <DetailDosage
+        <DetailCategory
           id={selectedDetail}
           onClose={() => setSelectedDetail(null)}
         />
@@ -60,4 +55,4 @@ const Dosages = () => {
   );
 };
 
-export default Dosages;
+export default Categories;

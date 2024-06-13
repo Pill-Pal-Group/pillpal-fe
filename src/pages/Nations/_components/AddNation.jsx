@@ -7,31 +7,34 @@ import {
   useGetSpecificationById,
   useUpdateSpecification,
 } from "../../../hooks/useSpecificationApi";
-const AddSpecification = ({ onClose, id = null }) => {
+import {
+  useCreateNation,
+  useGetNationById,
+  useUpdateNation,
+} from "../../../hooks/useNationApi";
+const AddNation = ({ onClose, id = null }) => {
   const queryClient = useQueryClient();
 
-  // API: CREATE SPECIFICATION
-  const { mutate: createMutate, isLoading: createLoading } =
-    useCreateSpecification();
+  // API: CREATE NATION
+  const { mutate: createMutate, isLoading: createLoading } = useCreateNation();
 
-  // API: UPDATE SPECIFICATION
+  // API: UPDATE NATION
   const { mutate: updateMutate, isLoading: updateLoading } =
-    useUpdateSpecification(id);
+    useUpdateNation(id);
 
-  // API: GET DETAIL SPECIFICATION
-  const { data: initData, isLoading: initLoading } =
-    useGetSpecificationById(id);
+  // API: GET DETAIL NATION
+  const { data: initData, isLoading: initLoading } = useGetNationById(id);
 
   const [form] = Form.useForm();
   const [body, setBody] = useState({
-    typeName: "",
-    detail: "",
+    nationCode: "",
+    nationName: "",
   });
 
   useEffect(() => {
     if (id && initData) {
       setBody(initData);
-      form.setFieldsValue(initData); // Explicitly set form values
+      form.setFieldsValue(initData);
     }
   }, [id, initData]);
 
@@ -39,15 +42,15 @@ const AddSpecification = ({ onClose, id = null }) => {
     if (id) {
       updateMutate(body, {
         onSuccess: () => {
-          queryClient.invalidateQueries("getSpecificationList");
-          queryClient.invalidateQueries(["getSpecificationById", id]);
+          queryClient.invalidateQueries("getNationList");
+          queryClient.invalidateQueries(["getNationById", id]);
           onClose();
         },
       });
     } else {
       createMutate(body, {
         onSuccess: () => {
-          queryClient.invalidateQueries("getSpecificationList");
+          queryClient.invalidateQueries("getNationList");
           onClose();
         },
       });
@@ -56,7 +59,7 @@ const AddSpecification = ({ onClose, id = null }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>ADD SPECIFICATION</h2>
+      <h2 style={{ textAlign: "center" }}>ADD NATION</h2>
       <Form
         form={form}
         onFinish={OnSubmit}
@@ -75,15 +78,15 @@ const AddSpecification = ({ onClose, id = null }) => {
         }}
         autoComplete="off"
       >
-        <Form.Item label="Name" name="typeName">
+        <Form.Item label="Code" name="nationCode">
           <Input
-            onChange={(e) => setBody({ ...body, typeName: e.target.value })}
+            onChange={(e) => setBody({ ...body, nationCode: e.target.value })}
           />
         </Form.Item>
 
-        <Form.Item label="Detail" name="detail">
+        <Form.Item label="Name" name="nationName">
           <Input
-            onChange={(e) => setBody({ ...body, detail: e.target.value })}
+            onChange={(e) => setBody({ ...body, nationName: e.target.value })}
           />
         </Form.Item>
 
@@ -102,4 +105,4 @@ const AddSpecification = ({ onClose, id = null }) => {
   );
 };
 
-export default AddSpecification;
+export default AddNation;

@@ -1,42 +1,30 @@
-import { Button, Table } from "antd";
-import React from "react";
+import { Button, Spin, Table } from "antd";
+import React, { useMemo, useState } from "react";
 import useDialog from "../../hooks/useDialog";
 import AddPharmaceutical from "./_components/AddPharmaceutical";
+import { useGetPharmaceuticalList } from "../../hooks/usePharmaceutialApi";
+import DetailPharmaceutical from "./_components/DetailPharmaceutical";
 
 const Pharmaceuticals = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      nation: "nation 1",
-      active: "x",
-    },
-    {
-      key: "2",
-      name: "John",
-      nation: "nation 2",
-      active: "x",
-    },
-  ];
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Company Name",
+      dataIndex: "companyName",
+      key: "companyName",
     },
     {
       title: "Nation",
       dataIndex: "nation",
       key: "nation",
     },
-    {
-      title: "Active",
-      dataIndex: "active",
-      key: "active",
-    },
   ];
 
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
+  const [selectedPharmaceutical, setSelectedPharmaceutical] = useState(null);
+  const { data = [], isLoading } = useGetPharmaceuticalList();
+  const dataSource = useMemo(() => {
+    return data.map((item) => ({ ...item, nation: item.nation.nationName }));
+  }, [data]);
 
   return (
     <div>
@@ -47,7 +35,18 @@ const Pharmaceuticals = () => {
       >
         Add Pharmaceutical
       </Button>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        loading={{ indicator: <Spin />, spinning: isLoading }}
+        onRow={(r) => ({ onClick: () => setSelectedPharmaceutical(r.id) })}
+      />
+      {Boolean(selectedPharmaceutical) && (
+        <DetailPharmaceutical
+          id={selectedPharmaceutical}
+          onClose={() => setSelectedPharmaceutical(null)}
+        />
+      )}
       {openAddDialog && <AddPharmaceutical onClose={toggleAddDialog} />}
     </div>
   );

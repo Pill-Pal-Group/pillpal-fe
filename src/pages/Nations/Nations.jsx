@@ -1,35 +1,30 @@
 import { Button, Spin, Table } from "antd";
 import React, { useMemo, useState } from "react";
 import useDialog from "../../hooks/useDialog";
-import AddDosage from "./_components/AddDosage";
-import { useGetDosageList } from "../../hooks/useDosageApi";
-import DetailDosage from "./_components/DetailDosage";
+import { useGetNationList } from "../../hooks/useNationApi";
+import DetailNation from "./_components/DetailNation";
+import AddNation from "./_components/AddNation";
 
-const Dosages = () => {
+const Nations = () => {
   const columns = [
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Code",
+      dataIndex: "nationCode",
+      key: "nationCode",
     },
     {
-      title: "Active",
-      dataIndex: "active",
-      key: "active",
+      title: "Name",
+      dataIndex: "nationName",
+      key: "nationName",
     },
   ];
 
   const [selectedDetail, setSelectedDetail] = useState(null);
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
-  const { data = [], isLoading } = useGetDosageList();
+  const { data = [], isLoading } = useGetNationList();
 
   const dataSource = useMemo(() => {
-    return data.map((item) => {
-      return {
-        id: item.id,
-        name: item.formName,
-      };
-    });
+    return data.map((item) => ({ ...item }));
   }, [data]);
 
   return (
@@ -39,7 +34,7 @@ const Dosages = () => {
         style={{ marginBottom: 16 }}
         onClick={toggleAddDialog}
       >
-        Add Dosage
+        Add Nation
       </Button>
       <Table
         dataSource={dataSource}
@@ -49,9 +44,9 @@ const Dosages = () => {
           onClick: () => setSelectedDetail(row.id),
         })}
       />
-      {openAddDialog && <AddDosage onClose={toggleAddDialog} />}
+      {openAddDialog && <AddNation onClose={toggleAddDialog} />}
       {Boolean(selectedDetail) && (
-        <DetailDosage
+        <DetailNation
           id={selectedDetail}
           onClose={() => setSelectedDetail(null)}
         />
@@ -60,4 +55,4 @@ const Dosages = () => {
   );
 };
 
-export default Dosages;
+export default Nations;

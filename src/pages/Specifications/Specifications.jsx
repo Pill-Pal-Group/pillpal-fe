@@ -1,23 +1,11 @@
 import { Button, Table } from "antd";
-import React from "react";
+import React, { useMemo, useState } from "react";
 import useDialog from "../../hooks/useDialog";
 import AddSpecification from "./_components/AddSpecification";
+import { useGetSpecificationList } from "../../hooks/useSpecificationApi";
+import DetailSpecification from "./_components/DetailSpecification";
 
 const Specifications = () => {
-  const dataSource = [
-    {
-      key: "1",
-      name: "Mike",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-    {
-      key: "2",
-      name: "John",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    },
-  ];
   const columns = [
     {
       title: "Name",
@@ -31,8 +19,20 @@ const Specifications = () => {
     },
   ];
 
+  const [selectedSpecification, setSelectedSpecification] = useState(null);
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
 
+  const { data = [], isLoading } = useGetSpecificationList();
+
+  const dataSource = useMemo(() => {
+    return data.map((item) => {
+      return {
+        id: item.id,
+        name: item.typeName,
+        description: item.detail,
+      };
+    });
+  }, [data]);
   return (
     <div>
       <Button
@@ -42,8 +42,19 @@ const Specifications = () => {
       >
         Add Specification
       </Button>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        loading={isLoading}
+        onRow={(r) => ({ onClick: () => setSelectedSpecification(r.id) })}
+      />
       {openAddDialog && <AddSpecification onClose={toggleAddDialog} />}
+      {Boolean(selectedSpecification) && (
+        <DetailSpecification
+          id={selectedSpecification}
+          onClose={() => setSelectedSpecification(null)}
+        />
+      )}
     </div>
   );
 };

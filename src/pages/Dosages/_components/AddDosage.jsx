@@ -1,51 +1,98 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "../../../components/dialog";
-const AddDosage = ({ onClose }) => {
+import {
+  useCreateDosage,
+  useGetDosageById,
+  useUpdateDosage,
+} from "../../../hooks/useDosageApi";
+import { useQueryClient } from "react-query";
+const AddDosage = ({ onClose, id }) => {
+  const [form] = Form.useForm();
+  const queryClient = useQueryClient();
+  const [body, setBody] = useState({ formName: "" });
+
+  // API: CREATE DOSAGE FORM
+  const { mutate: createMutate, isLoading: createLoading } = useCreateDosage();
+
+  // API: UPDATE DOSAGE FORM
+  const { mutate: updateMutate, isLoading: updateLoading } =
+    useUpdateDosage(id);
+
+  // API: GET DETAIL OF DOSAGE FORM
+  const { data: initData, isLoading: initLoading } = useGetDosageById(id);
+
+  useEffect(() => {
+    if (initData && id) {
+      setBody(initData);
+      form.setFieldsValue(initData);
+    }
+  }, [initData, id]);
+
+  const OnSubmit = () => {
+    if (id) {
+      updateMutate(body, {
+        onSuccess: () => {
+          queryClient.invalidateQueries("getDosageList");
+          queryClient.invalidateQueries(["getDosageById", id]);
+          onClose();
+        },
+      });
+    } else {
+      createMutate(body, {
+        onSuccess: () => {
+          queryClient.invalidateQueries("getDosageList");
+          onClose();
+        },
+      });
+    }
+  };
+
   return (
     <Dialog onClose={onClose}>
       <h2 style={{ textAlign: "center" }}>ADD DOSAGE</h2>
-      <Form
-        name="basic"
-        labelCol={{
-          span: 4,
-        }}
-        wrapperCol={{
-          span: 16,
-        }}
-        style={{
-          maxWidth: 600,
-        }}
-        initialValues={{
-          remember: true,
-        }}
-        autoComplete="off"
-      >
-        <Form.Item label="Name" name="Name">
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          name="active"
-          valuePropName="checked"
+      {initLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Form
+          onFinish={OnSubmit}
+          form={form}
+          name="basic"
+          labelCol={{
+            span: 4,
+          }}
           wrapperCol={{
-            offset: 8,
             span: 16,
           }}
-        >
-          <Checkbox>Active</Checkbox>
-        </Form.Item>
-        <Form.Item
-          wrapperCol={{
-            offset: 8,
-            span: 16,
+          style={{
+            maxWidth: 600,
           }}
+          initialValues={{
+            remember: true,
+          }}
+          autoComplete="off"
         >
-          <Button type="primary" htmlType="submit">
-            Submit
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item label="Name" name="formName">
+            <Input
+              onChange={(e) => setBody({ ...body, formName: e.target.value })}
+            />
+          </Form.Item>
+          <Form.Item
+            wrapperCol={{
+              offset: 8,
+              span: 16,
+            }}
+          >
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={createLoading || updateLoading}
+            >
+              Submit
+            </Button>
+          </Form.Item>
+        </Form>
+      )}
     </Dialog>
   );
 };
