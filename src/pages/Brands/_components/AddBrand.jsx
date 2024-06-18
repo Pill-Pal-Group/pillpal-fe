@@ -50,9 +50,11 @@ const AddBranch = ({ onClose, id = null }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>{id ? "UPDATE" : "ADD"} BRANCH</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {id ? "CHỈNH SỬA" : "THÊM"} THƯƠNG HIỆU
+      </h2>
       {initLoading ? (
-        <p>Loading...</p>
+        <p>Đang tải...</p>
       ) : (
         <Form
           form={form}
@@ -96,7 +98,7 @@ const AddBranch = ({ onClose, id = null }) => {
               htmlType="submit"
               loading={isLoading || updateLoading}
             >
-              Submit
+              Cập nhật
             </Button>
           </Form.Item>
         </Form>

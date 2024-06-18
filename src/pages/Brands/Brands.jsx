@@ -4,34 +4,46 @@ import useDialog from "../../hooks/useDialog";
 import AddBrand from "./_components/AddBrand";
 import { useGetBrandList } from "../../hooks/useBrandApi";
 import DetailBrand from "./_components/DetailBrand";
+import DeleteBrand from "./_components/DeleteBrand";
 
+const columns = [
+  {
+    title: "Mã",
+    dataIndex: "name",
+    key: "name",
+  },
+  {
+    title: "URL",
+    dataIndex: "link",
+    key: "link",
+  },
+  {
+    title: "Logo",
+    dataIndex: "logo",
+    key: "logo",
+  },
+  {
+    title: "",
+    dataIndex: "edit",
+    key: "edit",
+  },
+  {
+    title: "",
+    dataIndex: "delete",
+    key: "delete",
+  },
+];
 const Brands = () => {
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Link",
-      dataIndex: "link",
-      key: "link",
-    },
-    {
-      title: "Logo",
-      dataIndex: "logo",
-      key: "logo",
-    },
-    {
-      title: "Active",
-      dataIndex: "active",
-      key: "active",
-    },
-  ];
-
-  const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
-  const [detailSelected, setDetailSelected] = useState(null);
+  // api get brand list
   const { isLoading, data = [] } = useGetBrandList();
+
+  // dialog state
+  const { isShow: openDetail, toggleDialog: toggleDetail } = useDialog();
+  const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
+  const { isShow: openDelete, toggleDialog: toggleDelete } = useDialog();
+  const { isShow: openUpdate, toggleDialog: toggleUpdate } = useDialog();
+
+  const [detailSelected, setDetailSelected] = useState(null);
 
   const dataSource = useMemo(() => {
     return data.map((item) => {
@@ -41,6 +53,32 @@ const Brands = () => {
         link: item.brandUrl,
         logo: <img src={item.brandLogo} style={{ width: 70 }} />,
         key: item._id,
+        edit: (
+          <Button
+            type="primary"
+            style={{ background: "#ff9b1e" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setDetailSelected(item.id);
+              toggleUpdate();
+            }}
+          >
+            Chỉnh sửa
+          </Button>
+        ),
+        delete: (
+          <Button
+            type="primary"
+            style={{ background: "#fb3030" }}
+            onClick={(e) => {
+              e.stopPropagation();
+              setDetailSelected(item.id);
+              toggleDelete();
+            }}
+          >
+            Xóa
+          </Button>
+        ),
       };
     });
   }, [data]);
@@ -52,19 +90,46 @@ const Brands = () => {
         style={{ marginBottom: 16 }}
         onClick={toggleAddDialog}
       >
-        Add Branch
+        Thêm thương hiệu
       </Button>
       <Table
         dataSource={dataSource}
         columns={columns}
         loading={isLoading}
-        onRow={(r) => ({ onClick: () => setDetailSelected(r.id) })}
+        onRow={(r) => ({
+          onClick: () => {
+            setDetailSelected(r.id);
+            toggleDetail();
+          },
+        })}
       />
       {openAddDialog && <AddBrand onClose={toggleAddDialog} />}
-      {Boolean(detailSelected) && (
+      {openDetail && (
         <DetailBrand
           id={detailSelected}
-          onClose={() => setDetailSelected(null)}
+          onClose={() => {
+            setDetailSelected(null);
+            toggleDetail();
+          }}
+        />
+      )}
+      {openUpdate && (
+        <AddBrand
+          onClose={() => {
+            setDetailSelected(null);
+            toggleUpdate();
+          }}
+          id={detailSelected}
+        />
+      )}
+
+      {openDelete && (
+        <DeleteBrand
+          onClose={() => {
+            setDetailSelected(null);
+            toggleDelete();
+          }}
+          id={detailSelected}
         />
       )}
     </div>
