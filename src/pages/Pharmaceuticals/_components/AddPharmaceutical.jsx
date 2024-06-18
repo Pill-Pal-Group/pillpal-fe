@@ -67,7 +67,7 @@ const AddPharmaceutical = ({ onClose, id }) => {
   return (
     <Dialog onClose={onClose}>
       <h2 style={{ textAlign: "center" }}>
-        {id ? "UPDATE" : "ADD"} PHARMACEUTICAL
+        {id ? "CHỈNH SỬA" : "THÊM"} CÔNG TY DƯỢC PHẨM
       </h2>
       <Form
         form={form}
@@ -80,26 +80,24 @@ const AddPharmaceutical = ({ onClose, id }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Name"
+          label="Tên công ty"
           name="companyName"
-          rules={[
-            { required: true, message: "Please input the company name!" },
-          ]}
+          rules={[{ required: true, message: "Không bỏ trống!" }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Nation"
+          label="Quốc gia"
           name="nationId"
-          rules={[{ required: true, message: "Please select a nation!" }]}
+          rules={[{ required: true, message: "Vui lòng chọn!" }]}
         >
           <Select style={{ width: "100%" }} options={nationOption} />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            Cập nhật
           </Button>
         </Form.Item>
       </Form>
