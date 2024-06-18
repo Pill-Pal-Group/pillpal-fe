@@ -3,16 +3,6 @@ import React, { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import Dialog from "../../../components/dialog";
 import {
-  useCreateSpecification,
-  useGetSpecificationById,
-  useUpdateSpecification,
-} from "../../../hooks/useSpecificationApi";
-import {
-  useCreateNation,
-  useGetNationById,
-  useUpdateNation,
-} from "../../../hooks/useNationApi";
-import {
   useCreateCategory,
   useGetCategoryById,
   useUpdateCategory,
@@ -64,7 +54,9 @@ const AddCategory = ({ onClose, id = null }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>{id ? "UPDATE" : "ADD"} CATEGORY</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {id ? "CHỈNH SỬA" : "THÊM"} DANH MỤC
+      </h2>
       <Form
         form={form}
         onFinish={OnSubmit}
@@ -83,7 +75,7 @@ const AddCategory = ({ onClose, id = null }) => {
         }}
         autoComplete="off"
       >
-        <Form.Item label="Name" name="categoryName">
+        <Form.Item label="Tên" name="categoryName">
           <Input
             onChange={(e) => setBody({ ...body, categoryName: e.target.value })}
           />
@@ -96,7 +88,7 @@ const AddCategory = ({ onClose, id = null }) => {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Submit
+            Cập nhật
           </Button>
         </Form.Item>
       </Form>
