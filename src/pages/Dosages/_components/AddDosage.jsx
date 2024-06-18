@@ -50,9 +50,11 @@ const AddDosage = ({ onClose, id }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>ADD DOSAGE</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {id ? "CHỈNH SỬA" : "THÊM"} LIỀU LƯỢNG
+      </h2>
       {initLoading ? (
-        <p>Loading...</p>
+        <p>Đang tải...</p>
       ) : (
         <Form
           onFinish={OnSubmit}
@@ -72,7 +74,7 @@ const AddDosage = ({ onClose, id }) => {
           }}
           autoComplete="off"
         >
-          <Form.Item label="Name" name="formName">
+          <Form.Item label="Tên liều lượng" name="formName">
             <Input
               onChange={(e) => setBody({ ...body, formName: e.target.value })}
             />
@@ -88,7 +90,7 @@ const AddDosage = ({ onClose, id }) => {
               htmlType="submit"
               loading={createLoading || updateLoading}
             >
-              Submit
+              Cập nhật
             </Button>
           </Form.Item>
         </Form>

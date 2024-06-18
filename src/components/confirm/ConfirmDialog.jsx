@@ -9,10 +9,10 @@ const ConfirmDialog = ({ onClose, title, content, onConfirmed, isLoading }) => {
       {content && <p className="text-center">{content}</p>}
       <div style={{ display: "flex", gap: "20px", justifyContent: "center" }}>
         <Button type="primary" onClick={onClose}>
-          Cancel
+          Hủy
         </Button>
         <Button type="danger" onClick={onConfirmed} loading={isLoading}>
-          Delete
+          Xóa
         </Button>
       </div>
     </Dialog>
