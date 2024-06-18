@@ -59,7 +59,9 @@ const AddNation = ({ onClose, id = null }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>ADD NATION</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {id ? "CHỈNH SỬA" : "THÊM"} QUỐC GIA
+      </h2>
       <Form
         form={form}
         onFinish={OnSubmit}
@@ -78,13 +80,13 @@ const AddNation = ({ onClose, id = null }) => {
         }}
         autoComplete="off"
       >
-        <Form.Item label="Code" name="nationCode">
+        <Form.Item label="Mã" name="nationCode">
           <Input
             onChange={(e) => setBody({ ...body, nationCode: e.target.value })}
           />
         </Form.Item>
 
-        <Form.Item label="Name" name="nationName">
+        <Form.Item label="Tên quốc gia" name="nationName">
           <Input
             onChange={(e) => setBody({ ...body, nationName: e.target.value })}
           />
@@ -97,7 +99,7 @@ const AddNation = ({ onClose, id = null }) => {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Submit
+            Cập nhật
           </Button>
         </Form.Item>
       </Form>
