@@ -56,10 +56,10 @@ const AddActiveIngredient = ({ onClose, id = null }) => {
   return (
     <Dialog onClose={onClose}>
       <h2 style={{ textAlign: "center" }}>
-        {id ? "UPDATE" : "ADD"} ACTIVE INGREDIENT
+        {id ? "CHỈNH SỬA" : "THÊM"} THÀNH PHẦN HOẠT CHẤT
       </h2>
       {initLoading ? (
-        <p>Loading...</p>
+        <p>Đang tải...</p>
       ) : (
         <Form
           form={form}
@@ -79,7 +79,7 @@ const AddActiveIngredient = ({ onClose, id = null }) => {
           }}
           autoComplete="off"
         >
-          <Form.Item label="Name" name="ingredientName">
+          <Form.Item label="Tên" name="ingredientName">
             <Input
               onChange={(e) =>
                 setBody({ ...body, ingredientName: e.target.value })
@@ -87,7 +87,7 @@ const AddActiveIngredient = ({ onClose, id = null }) => {
             />
           </Form.Item>
 
-          <Form.Item label="Information" name="ingredientInformation">
+          <Form.Item label="Thông tin" name="ingredientInformation">
             <Input
               onChange={(e) =>
                 setBody({ ...body, ingredientInformation: e.target.value })
@@ -105,7 +105,7 @@ const AddActiveIngredient = ({ onClose, id = null }) => {
               htmlType="submit"
               loading={isLoading || updateLoading}
             >
-              Submit
+              Cập nhật
             </Button>
           </Form.Item>
         </Form>
