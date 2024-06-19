@@ -1,5 +1,6 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import Dialog from "../../../components/dialog";
 import {
@@ -34,7 +35,7 @@ const AddBranch = ({ onClose, id = null }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getBrandList");
-          queryClient.invalidateQueries(["getBrandById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -42,6 +43,7 @@ const AddBranch = ({ onClose, id = null }) => {
       mutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getBrandList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });

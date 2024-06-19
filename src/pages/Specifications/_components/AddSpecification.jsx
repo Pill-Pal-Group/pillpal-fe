@@ -7,6 +7,7 @@ import {
   useGetSpecificationById,
   useUpdateSpecification,
 } from "../../../hooks/useSpecificationApi";
+import toast from "react-hot-toast";
 const AddSpecification = ({ onClose, id = null }) => {
   const queryClient = useQueryClient();
 
@@ -40,7 +41,7 @@ const AddSpecification = ({ onClose, id = null }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getSpecificationList");
-          queryClient.invalidateQueries(["getSpecificationById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -48,6 +49,7 @@ const AddSpecification = ({ onClose, id = null }) => {
       createMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getSpecificationList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });

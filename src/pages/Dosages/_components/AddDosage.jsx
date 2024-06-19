@@ -7,6 +7,7 @@ import {
   useUpdateDosage,
 } from "../../../hooks/useDosageApi";
 import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 const AddDosage = ({ onClose, id }) => {
   const [form] = Form.useForm();
   const queryClient = useQueryClient();
@@ -34,7 +35,7 @@ const AddDosage = ({ onClose, id }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getDosageList");
-          queryClient.invalidateQueries(["getDosageById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -42,6 +43,7 @@ const AddDosage = ({ onClose, id }) => {
       createMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getDosageList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });

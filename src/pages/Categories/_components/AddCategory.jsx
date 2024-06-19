@@ -7,6 +7,7 @@ import {
   useGetCategoryById,
   useUpdateCategory,
 } from "../../../hooks/useCategoryApi";
+import toast from "react-hot-toast";
 const AddCategory = ({ onClose, id = null }) => {
   const queryClient = useQueryClient();
 
@@ -38,7 +39,7 @@ const AddCategory = ({ onClose, id = null }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getCategoryList");
-          queryClient.invalidateQueries(["getCategoryById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -46,6 +47,7 @@ const AddCategory = ({ onClose, id = null }) => {
       createMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getCategoryList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });

@@ -2,6 +2,7 @@ import React from "react";
 import { useQueryClient } from "react-query";
 import { useDeleteActiveIngredient } from "../../../hooks/useActiveIngredientApi";
 import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
+import toast from "react-hot-toast";
 
 const DeleteActiveIngredient = ({ id, onClose }) => {
   const queryClient = useQueryClient();
@@ -12,6 +13,7 @@ const DeleteActiveIngredient = ({ id, onClose }) => {
     mutate(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries("getActiveIngredientList");
+        toast.success("Xóa thành công!");
         onClose();
       },
     });

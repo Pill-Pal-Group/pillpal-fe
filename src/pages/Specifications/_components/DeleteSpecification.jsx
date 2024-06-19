@@ -2,6 +2,7 @@ import React from "react";
 import { useQueryClient } from "react-query";
 import { useDeleteSpecification } from "../../../hooks/useSpecificationApi";
 import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
+import toast from "react-hot-toast";
 
 const DeleteSpecification = ({ id, onClose }) => {
   const queryClient = useQueryClient();
@@ -10,6 +11,7 @@ const DeleteSpecification = ({ id, onClose }) => {
     mutate(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries("getSpecificationList");
+        toast.success("Xóa thành công!");
         onClose();
       },
     });

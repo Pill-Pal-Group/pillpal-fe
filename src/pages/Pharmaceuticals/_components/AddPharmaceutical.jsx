@@ -8,6 +8,7 @@ import {
 } from "../../../hooks/usePharmaceutialApi";
 import { useGetNationList } from "../../../hooks/useNationApi";
 import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 const AddPharmaceutical = ({ onClose, id }) => {
   const queryClient = useQueryClient();
@@ -50,7 +51,7 @@ const AddPharmaceutical = ({ onClose, id }) => {
       updateMutate(values, {
         onSuccess: () => {
           queryClient.invalidateQueries("getPharmaceuticalList");
-          queryClient.invalidateQueries(["getPharmaceuticalById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -58,6 +59,7 @@ const AddPharmaceutical = ({ onClose, id }) => {
       createMutate(values, {
         onSuccess: () => {
           queryClient.invalidateQueries("getPharmaceuticalList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });

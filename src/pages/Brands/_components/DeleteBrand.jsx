@@ -2,6 +2,7 @@ import React from "react";
 import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
 import { useQueryClient } from "react-query";
 import { useDeleteBrand } from "../../../hooks/useBrandApi";
+import toast from "react-hot-toast";
 
 const DeleteBrand = ({ id, onClose }) => {
   const queryClient = useQueryClient();
@@ -12,6 +13,7 @@ const DeleteBrand = ({ id, onClose }) => {
     mutate(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries("getBrandList");
+        toast.success("Xóa thành công!");
         onClose();
       },
     });

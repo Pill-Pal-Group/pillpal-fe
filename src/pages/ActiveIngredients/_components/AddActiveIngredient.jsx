@@ -7,6 +7,7 @@ import {
   useGetActiveIngredientById,
   useUpdateActiveIngredient,
 } from "../../../hooks/useActiveIngredientApi";
+import toast from "react-hot-toast";
 
 const AddActiveIngredient = ({ onClose, id = null }) => {
   const queryClient = useQueryClient();
@@ -39,7 +40,7 @@ const AddActiveIngredient = ({ onClose, id = null }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getActiveIngredientList");
-          queryClient.invalidateQueries(["getActiveIngredientById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -47,6 +48,7 @@ const AddActiveIngredient = ({ onClose, id = null }) => {
       mutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getActiveIngredientList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });

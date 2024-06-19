@@ -12,6 +12,7 @@ import {
   useGetNationById,
   useUpdateNation,
 } from "../../../hooks/useNationApi";
+import toast from "react-hot-toast";
 const AddNation = ({ onClose, id = null }) => {
   const queryClient = useQueryClient();
 
@@ -43,7 +44,7 @@ const AddNation = ({ onClose, id = null }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getNationList");
-          queryClient.invalidateQueries(["getNationById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -51,6 +52,7 @@ const AddNation = ({ onClose, id = null }) => {
       createMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getNationList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });

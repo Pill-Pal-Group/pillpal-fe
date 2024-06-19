@@ -2,6 +2,7 @@ import React from "react";
 import { useQueryClient } from "react-query";
 import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
 import { useDeleteDosage } from "../../../hooks/useDosageApi";
+import toast from "react-hot-toast";
 
 const DeleteDosage = ({ id, onClose }) => {
   const queryClient = useQueryClient();
@@ -10,6 +11,7 @@ const DeleteDosage = ({ id, onClose }) => {
   const OnDelete = () => {
     mutate(undefined, {
       onSuccess: () => {
+        toast.success("Xóa thành công!");
         queryClient.invalidateQueries("getDosageList");
         onClose();
       },

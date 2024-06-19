@@ -2,6 +2,7 @@ import React from "react";
 import { useQueryClient } from "react-query";
 import { useDeleteNation } from "../../../hooks/useNationApi";
 import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
+import toast from "react-hot-toast";
 
 const DeleteNation = ({ id, onClose }) => {
   const queryClient = useQueryClient();
@@ -10,6 +11,7 @@ const DeleteNation = ({ id, onClose }) => {
     mutate(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries("getNationList");
+        toast.success("Xóa thành công!");
         onClose();
       },
     });

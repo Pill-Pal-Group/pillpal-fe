@@ -2,6 +2,7 @@ import React from "react";
 import { useQueryClient } from "react-query";
 import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
 import { useDeletePharmaceutical } from "../../../hooks/usePharmaceutialApi";
+import toast from "react-hot-toast";
 
 const DeletePharmaceutical = ({ id, onClose }) => {
   const queryClient = useQueryClient();
@@ -12,6 +13,7 @@ const DeletePharmaceutical = ({ id, onClose }) => {
     mutate(undefined, {
       onSuccess: () => {
         queryClient.invalidateQueries("getPharmaceuticalList");
+        toast.success("Xóa thành công!");
         onClose();
       },
     });
