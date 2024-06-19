@@ -8,12 +8,12 @@ import DeletePharmaceutical from "./_components/DeletePharmaceutical";
 
 const columns = [
   {
-    title: "Company Name",
+    title: "Tên công ty",
     dataIndex: "companyName",
     key: "companyName",
   },
   {
-    title: "Nation",
+    title: "Quốc gia",
     dataIndex: "nation",
     key: "nation",
   },
