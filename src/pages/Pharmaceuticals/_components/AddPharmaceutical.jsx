@@ -8,6 +8,7 @@ import {
 } from "../../../hooks/usePharmaceutialApi";
 import { useGetNationList } from "../../../hooks/useNationApi";
 import { useQueryClient } from "react-query";
+import toast from "react-hot-toast";
 
 const AddPharmaceutical = ({ onClose, id }) => {
   const queryClient = useQueryClient();
@@ -50,7 +51,7 @@ const AddPharmaceutical = ({ onClose, id }) => {
       updateMutate(values, {
         onSuccess: () => {
           queryClient.invalidateQueries("getPharmaceuticalList");
-          queryClient.invalidateQueries(["getPharmaceuticalById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -58,6 +59,7 @@ const AddPharmaceutical = ({ onClose, id }) => {
       createMutate(values, {
         onSuccess: () => {
           queryClient.invalidateQueries("getPharmaceuticalList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });
@@ -67,7 +69,7 @@ const AddPharmaceutical = ({ onClose, id }) => {
   return (
     <Dialog onClose={onClose}>
       <h2 style={{ textAlign: "center" }}>
-        {id ? "UPDATE" : "ADD"} PHARMACEUTICAL
+        {id ? "CHỈNH SỬA" : "THÊM"} CÔNG TY DƯỢC PHẨM
       </h2>
       <Form
         form={form}
@@ -80,26 +82,24 @@ const AddPharmaceutical = ({ onClose, id }) => {
         autoComplete="off"
       >
         <Form.Item
-          label="Name"
+          label="Tên công ty"
           name="companyName"
-          rules={[
-            { required: true, message: "Please input the company name!" },
-          ]}
+          rules={[{ required: true, message: "Không bỏ trống!" }]}
         >
           <Input />
         </Form.Item>
 
         <Form.Item
-          label="Nation"
+          label="Quốc gia"
           name="nationId"
-          rules={[{ required: true, message: "Please select a nation!" }]}
+          rules={[{ required: true, message: "Vui lòng chọn!" }]}
         >
           <Select style={{ width: "100%" }} options={nationOption} />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Submit
+            Cập nhật
           </Button>
         </Form.Item>
       </Form>

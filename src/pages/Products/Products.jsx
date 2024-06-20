@@ -19,7 +19,7 @@ function Products() {
   return (
     <>
       <Button type="primary" onClick={toggleAddDialog}>
-        Add Medicine
+        Thêm thuốc
       </Button>
 
       <div className="container">

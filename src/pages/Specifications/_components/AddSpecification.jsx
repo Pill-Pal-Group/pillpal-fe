@@ -7,6 +7,7 @@ import {
   useGetSpecificationById,
   useUpdateSpecification,
 } from "../../../hooks/useSpecificationApi";
+import toast from "react-hot-toast";
 const AddSpecification = ({ onClose, id = null }) => {
   const queryClient = useQueryClient();
 
@@ -40,7 +41,7 @@ const AddSpecification = ({ onClose, id = null }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getSpecificationList");
-          queryClient.invalidateQueries(["getSpecificationById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -48,6 +49,7 @@ const AddSpecification = ({ onClose, id = null }) => {
       createMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getSpecificationList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });
@@ -56,7 +58,9 @@ const AddSpecification = ({ onClose, id = null }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>ADD SPECIFICATION</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {id ? "CHỈNH SỬA" : "THÊM"} ĐẶC TÍNH
+      </h2>
       <Form
         form={form}
         onFinish={OnSubmit}
@@ -75,13 +79,13 @@ const AddSpecification = ({ onClose, id = null }) => {
         }}
         autoComplete="off"
       >
-        <Form.Item label="Name" name="typeName">
+        <Form.Item label="Tên đặc tính" name="typeName">
           <Input
             onChange={(e) => setBody({ ...body, typeName: e.target.value })}
           />
         </Form.Item>
 
-        <Form.Item label="Detail" name="detail">
+        <Form.Item label="Ghi chú" name="detail">
           <Input
             onChange={(e) => setBody({ ...body, detail: e.target.value })}
           />
@@ -94,7 +98,7 @@ const AddSpecification = ({ onClose, id = null }) => {
           }}
         >
           <Button type="primary" htmlType="submit">
-            Submit
+            Cập nhật
           </Button>
         </Form.Item>
       </Form>

@@ -327,7 +327,7 @@ function Sidenav({ color }) {
           </NavLink>
         </Menu.Item> */}
         <Menu.Item className="menu-item-header" key="5">
-          Account Pages
+          MỤC NGƯỜI DÙNG
         </Menu.Item>
         <Menu.Item key="6">
           <NavLink to="/profile">
@@ -339,33 +339,16 @@ function Sidenav({ color }) {
             >
               {profile}
             </span>
-            <span className="label">Profile</span>
+            <span className="label">Tài khoản</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">
           <div onClick={onLogout}>
             <span className="icon">{signin}</span>
-            <span className="label">Log out</span>
+            <span className="label">Đăng xuất</span>
           </div>
         </Menu.Item>
       </Menu>
-      <div className="aside-footer">
-        <div
-          className="footer-box"
-          style={{
-            background: color,
-          }}
-        >
-          <span className="icon" style={{ color }}>
-            {dashboard}
-          </span>
-          <h6>Need Help?</h6>
-          <p>Please check our docs</p>
-          <Button type="primary" className="ant-btn-sm ant-btn-block">
-            DOCUMENTATION
-          </Button>
-        </div>
-      </div>
     </>
   );
 }

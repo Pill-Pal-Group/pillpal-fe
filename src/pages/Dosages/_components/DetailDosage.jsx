@@ -1,33 +1,14 @@
-import { Button } from "antd";
 import React from "react";
-import { useQueryClient } from "react-query";
-import ConfirmDialog from "../../../components/confirm/ConfirmDialog";
 import Dialog from "../../../components/dialog";
-import useDialog from "../../../hooks/useDialog";
-import { useDeleteDosage, useGetDosageById } from "../../../hooks/useDosageApi";
-import AddDosage from "./AddDosage";
+import { useGetDosageById } from "../../../hooks/useDosageApi";
 
 const DetailDosage = ({ id, onClose }) => {
-  const queryClient = useQueryClient();
-
   const { isLoading, data } = useGetDosageById(id);
-  const { isLoading: deleteLoading, mutate } = useDeleteDosage(id);
-  const { isShow: openConfirm, toggleDialog: toggleConfirm } = useDialog();
-  const { isShow: openUpdate, toggleDialog: toggleUpdate } = useDialog();
-
-  const OnDelete = () => {
-    mutate(undefined, {
-      onSuccess: () => {
-        queryClient.invalidateQueries("getDosageList");
-        onClose();
-      },
-    });
-  };
 
   return (
     <Dialog onClose={onClose}>
       {isLoading ? (
-        <p>Loading...</p>
+        <p>Đang tải...</p>
       ) : (
         <div
           style={{
@@ -36,31 +17,11 @@ const DetailDosage = ({ id, onClose }) => {
             alignItems: "center",
           }}
         >
-          <h3 style={{ fontSize: "24px" }}>Detail Dosage Form</h3>
+          <h3 style={{ fontSize: "24px" }}>Chi tiết liều lượng</h3>
 
-          <p>Form name: {data?.formName}</p>
-
-          <div style={{ display: "flex", gap: "20px" }}>
-            <Button type="primary" onClick={toggleUpdate}>
-              Update
-            </Button>
-            <Button type="danger" onClick={toggleConfirm}>
-              Delete
-            </Button>
-          </div>
+          <p>Tên Liều lượng: {data?.formName}</p>
         </div>
       )}
-      {openConfirm && (
-        <ConfirmDialog
-          content={"Are you sure?"}
-          onConfirmed={OnDelete}
-          title={"Delete Dosage Form"}
-          onClose={toggleConfirm}
-          isLoading={deleteLoading}
-        />
-      )}
-
-      {openUpdate && <AddDosage onClose={toggleUpdate} id={id} />}
     </Dialog>
   );
 };

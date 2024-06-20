@@ -1,5 +1,6 @@
 import { Button, Form, Input } from "antd";
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { useQueryClient } from "react-query";
 import Dialog from "../../../components/dialog";
 import {
@@ -34,7 +35,7 @@ const AddBranch = ({ onClose, id = null }) => {
       updateMutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getBrandList");
-          queryClient.invalidateQueries(["getBrandById", id]);
+          toast.success("Cập nhật thành công!");
           onClose();
         },
       });
@@ -42,6 +43,7 @@ const AddBranch = ({ onClose, id = null }) => {
       mutate(body, {
         onSuccess: () => {
           queryClient.invalidateQueries("getBrandList");
+          toast.success("Thêm thành công!");
           onClose();
         },
       });
@@ -50,9 +52,11 @@ const AddBranch = ({ onClose, id = null }) => {
 
   return (
     <Dialog onClose={onClose}>
-      <h2 style={{ textAlign: "center" }}>{id ? "UPDATE" : "ADD"} BRANCH</h2>
+      <h2 style={{ textAlign: "center" }}>
+        {id ? "CHỈNH SỬA" : "THÊM"} THƯƠNG HIỆU
+      </h2>
       {initLoading ? (
-        <p>Loading...</p>
+        <p>Đang tải...</p>
       ) : (
         <Form
           form={form}
@@ -96,7 +100,7 @@ const AddBranch = ({ onClose, id = null }) => {
               htmlType="submit"
               loading={isLoading || updateLoading}
             >
-              Submit
+              Cập nhật
             </Button>
           </Form.Item>
         </Form>
