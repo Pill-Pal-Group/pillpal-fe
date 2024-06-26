@@ -1,11 +1,12 @@
-import { Button, Spin, Table } from "antd";
+import { Button } from "antd";
 import React, { useMemo, useState } from "react";
+import CustomTable from "../../components/table";
 import useDialog from "../../hooks/useDialog";
 import { useGetNationList } from "../../hooks/useNationApi";
 import AddNation from "./_components/AddNation";
 import DeleteNation from "./_components/DeleteNation";
 import DetailNation from "./_components/DetailNation";
-
+import GradientButton from "../../components/button/GradientButton";
 const columns = [
   {
     title: "Mã",
@@ -21,11 +22,13 @@ const columns = [
     title: "",
     dataIndex: "edit",
     key: "edit",
+    width: 100,
   },
   {
     title: "",
     dataIndex: "delete",
     key: "delete",
+    width: 100,
   },
 ];
 const Nations = () => {
@@ -44,48 +47,43 @@ const Nations = () => {
     return data.map((item) => ({
       ...item,
       edit: (
-        <Button
-          type="primary"
-          style={{ background: "#ff9b1e" }}
+        <GradientButton
+          type={"warning"}
+          label={"Chỉnh sửa"}
           onClick={(e) => {
             e.stopPropagation();
             setSelectedDetail(item.id);
             toggleUpdate();
           }}
-        >
-          Chỉnh sửa
-        </Button>
+        />
       ),
       delete: (
-        <Button
-          type="primary"
-          style={{ background: "#fb3030" }}
+        <GradientButton
+          type={"danger"}
+          label={"Xóa"}
           onClick={(e) => {
             e.stopPropagation();
             setSelectedDetail(item.id);
             toggleDelete();
           }}
-        >
-          Xóa
-        </Button>
+        />
       ),
     }));
   }, [data]);
 
   return (
     <div>
-      <Button
-        type="primary"
-        style={{ marginBottom: 16 }}
+      <GradientButton
+        label="Thêm quốc gia"
         onClick={toggleAddDialog}
-      >
-        Thêm quốc gia{" "}
-      </Button>
-      <Table
-        dataSource={dataSource}
+        type="primary"
+        style={{ marginBottom: "10px" }}
+      />
+      <CustomTable
         columns={columns}
-        loading={{ indicator: <Spin />, spinning: isLoading }}
-        onRow={(row) => ({
+        data={dataSource}
+        isLoading={isLoading}
+        onRowClick={(row) => ({
           onClick: () => {
             setSelectedDetail(row.id);
             toggleDetail();
