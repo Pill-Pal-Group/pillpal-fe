@@ -1,5 +1,6 @@
-import { Button, Spin, Table } from "antd";
 import React, { useMemo, useState } from "react";
+import GradientButton from "../../components/button/GradientButton";
+import CustomTable from "../../components/table";
 import useDialog from "../../hooks/useDialog";
 import { useGetDosageList } from "../../hooks/useDosageApi";
 import AddDosage from "./_components/AddDosage";
@@ -16,11 +17,13 @@ const columns = [
     title: "",
     dataIndex: "edit",
     key: "edit",
+    width: 100,
   },
   {
     title: "",
     dataIndex: "delete",
     key: "delete",
+    width: 100,
   },
 ];
 
@@ -40,53 +43,46 @@ const Dosages = () => {
     return data.map((item) => ({
       ...item,
       edit: (
-        <Button
-          type="primary"
-          style={{ background: "#ff9b1e" }}
+        <GradientButton
+          label="Chỉnh sửa"
           onClick={(e) => {
             e.stopPropagation();
             setSelectedDetail(item.id);
             toggleUpdate();
           }}
-        >
-          Chỉnh sửa
-        </Button>
+          type="warning"
+        />
       ),
       delete: (
-        <Button
-          type="primary"
-          style={{ background: "#fb3030" }}
+        <GradientButton
+          label="Xóa"
+          type="danger"
           onClick={(e) => {
             e.stopPropagation();
             setSelectedDetail(item.id);
             toggleDelete();
           }}
-        >
-          Xóa
-        </Button>
+        />
       ),
     }));
   }, [data]);
 
   return (
     <div>
-      <Button
-        type="primary"
-        style={{ marginBottom: 16 }}
+      <GradientButton
+        label="Thêm liều lượng"
         onClick={toggleAddDialog}
-      >
-        Thêm liều lượng
-      </Button>
-      <Table
-        dataSource={dataSource}
+        type={"primary"}
+        style={{ marginBottom: "20px" }}
+      />
+      <CustomTable
+        data={dataSource}
         columns={columns}
-        loading={{ indicator: <Spin />, spinning: isLoading }}
-        onRow={(row) => ({
-          onClick: () => {
-            setSelectedDetail(row.id);
-            toggleDetail();
-          },
-        })}
+        onRowClick={(row) => {
+          setSelectedDetail(row.id);
+          toggleDetail();
+        }}
+        isLoading={isLoading}
       />
       {openAddDialog && <AddDosage onClose={toggleAddDialog} />}
       {openDetail && (

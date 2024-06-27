@@ -1,10 +1,11 @@
-import { Button, Table } from "antd";
 import React, { useMemo, useState } from "react";
+import GradientButton from "../../components/button/GradientButton";
+import CustomTable from "../../components/table";
 import { useGetActiveIngredientList } from "../../hooks/useActiveIngredientApi";
 import useDialog from "../../hooks/useDialog";
 import AddActiveIngredient from "./_components/AddActiveIngredient";
-import DetailActiveIngredient from "./_components/DetailActiveIngredient";
 import DeleteActiveIngredient from "./_components/DeleteActiveIngredient";
+import DetailActiveIngredient from "./_components/DetailActiveIngredient";
 
 const columns = [
   {
@@ -26,11 +27,13 @@ const columns = [
     title: "",
     dataIndex: "edit",
     key: "edit",
+    width: 100,
   },
   {
     title: "",
     dataIndex: "delete",
     key: "delete",
+    width: 100,
   },
 ];
 const ActiveIngredients = () => {
@@ -49,53 +52,45 @@ const ActiveIngredients = () => {
     return data.map((item) => ({
       ...item,
       edit: (
-        <Button
-          type="primary"
-          style={{ background: "#ff9b1e" }}
+        <GradientButton
+          label={"Chỉnh sửa"}
           onClick={(e) => {
             e.stopPropagation();
             setDetailSelected(item.id);
             toggleUpdate();
           }}
-        >
-          Chỉnh sửa
-        </Button>
+          type={"warning"}
+        />
       ),
       delete: (
-        <Button
-          type="primary"
-          style={{ background: "#fb3030" }}
+        <GradientButton
+          label={"Xóa"}
           onClick={(e) => {
             e.stopPropagation();
             setDetailSelected(item.id);
             toggleDelete();
           }}
-        >
-          Xóa
-        </Button>
+          type={"danger"}
+        />
       ),
     }));
   }, [data]);
 
   return (
     <div>
-      <Button
-        type="primary"
-        style={{ marginBottom: 16 }}
+      <GradientButton
+        label={"Thêm thành phần hoạt chất"}
         onClick={toggleAddDialog}
-      >
-        Thêm thành phần hoạt chất
-      </Button>
-      <Table
-        dataSource={dataSource}
+        style={{ marginBottom: "20px" }}
+      />
+      <CustomTable
         columns={columns}
-        loading={isLoading}
-        onRow={(r) => ({
-          onClick: () => {
-            setDetailSelected(r.id);
-            toggleDetail();
-          },
-        })}
+        data={dataSource}
+        onRowClick={(r) => {
+          setDetailSelected(r.id);
+          toggleDetail();
+        }}
+        isLoading={isLoading}
       />
       {openAddDialog && <AddActiveIngredient onClose={toggleAddDialog} />}
       {openDetail && (

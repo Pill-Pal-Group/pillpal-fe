@@ -6,6 +6,7 @@ import useDialog from "../../hooks/useDialog";
 import AddProduct from "./_components/AddProduct";
 import { useGetListMedicine } from "../../hooks/useMedicineApi";
 import { useGetCategoryList } from "../../hooks/useCategoryApi";
+import GradientButton from "../../components/button/GradientButton";
 
 function Products() {
   const { isShow: openAddDialog, toggleDialog: toggleAddDialog } = useDialog();
@@ -18,9 +19,7 @@ function Products() {
 
   return (
     <>
-      <Button type="primary" onClick={toggleAddDialog}>
-        Thêm thuốc
-      </Button>
+      <GradientButton label="Thêm thuốc" onClick={toggleAddDialog} />
 
       <div className="container">
         {categoriesData.map((category, index) => (
