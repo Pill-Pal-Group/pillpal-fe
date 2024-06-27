@@ -1,10 +1,11 @@
-import { Button, Table } from "antd";
-import React, { act, useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
+import GradientButton from "../../components/button/GradientButton";
+import CustomTable from "../../components/table";
+import { useGetBrandList } from "../../hooks/useBrandApi";
 import useDialog from "../../hooks/useDialog";
 import AddBrand from "./_components/AddBrand";
-import { useGetBrandList } from "../../hooks/useBrandApi";
-import DetailBrand from "./_components/DetailBrand";
 import DeleteBrand from "./_components/DeleteBrand";
+import DetailBrand from "./_components/DetailBrand";
 
 const columns = [
   {
@@ -26,11 +27,13 @@ const columns = [
     title: "",
     dataIndex: "edit",
     key: "edit",
+    width: 100,
   },
   {
     title: "",
     dataIndex: "delete",
     key: "delete",
+    width: 100,
   },
 ];
 const Brands = () => {
@@ -54,30 +57,26 @@ const Brands = () => {
         logo: <img src={item.brandLogo} style={{ width: 70 }} />,
         key: item._id,
         edit: (
-          <Button
-            type="primary"
-            style={{ background: "#ff9b1e" }}
+          <GradientButton
+            label={"Chỉnh sửa"}
+            type={"warning"}
             onClick={(e) => {
               e.stopPropagation();
               setDetailSelected(item.id);
               toggleUpdate();
             }}
-          >
-            Chỉnh sửa
-          </Button>
+          />
         ),
         delete: (
-          <Button
-            type="primary"
-            style={{ background: "#fb3030" }}
+          <GradientButton
+            label={"Xóa"}
+            type={"danger"}
             onClick={(e) => {
               e.stopPropagation();
               setDetailSelected(item.id);
               toggleDelete();
             }}
-          >
-            Xóa
-          </Button>
+          />
         ),
       };
     });
@@ -85,23 +84,19 @@ const Brands = () => {
 
   return (
     <div>
-      <Button
-        type="primary"
-        style={{ marginBottom: 16 }}
+      <GradientButton
+        label={"Thêm thương hiệu"}
         onClick={toggleAddDialog}
-      >
-        Thêm thương hiệu
-      </Button>
-      <Table
-        dataSource={dataSource}
+        style={{ marginBottom: "20px" }}
+      />
+      <CustomTable
         columns={columns}
-        loading={isLoading}
-        onRow={(r) => ({
-          onClick: () => {
-            setDetailSelected(r.id);
-            toggleDetail();
-          },
-        })}
+        data={dataSource}
+        isLoading={isLoading}
+        onRowClick={(r) => {
+          setDetailSelected(r.id);
+          toggleDetail();
+        }}
       />
       {openAddDialog && <AddBrand onClose={toggleAddDialog} />}
       {openDetail && (

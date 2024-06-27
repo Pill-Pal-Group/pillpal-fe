@@ -42,3 +42,7 @@
 .custom-table .ant-table-row:hover > td {
   background-color: #e6f7ff; /* Hover effect */
 }
+
+.custom-table .ant-table-pagination-right {
+  justify-content: center;
+}

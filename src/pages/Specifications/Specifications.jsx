@@ -1,10 +1,11 @@
-import { Button, Table } from "antd";
 import React, { useMemo, useState } from "react";
+import GradientButton from "../../components/button/GradientButton";
+import CustomTable from "../../components/table";
 import useDialog from "../../hooks/useDialog";
-import AddSpecification from "./_components/AddSpecification";
 import { useGetSpecificationList } from "../../hooks/useSpecificationApi";
-import DetailSpecification from "./_components/DetailSpecification";
+import AddSpecification from "./_components/AddSpecification";
 import DeleteSpecification from "./_components/DeleteSpecification";
+import DetailSpecification from "./_components/DetailSpecification";
 
 const columns = [
   {
@@ -21,11 +22,13 @@ const columns = [
     title: "",
     dataIndex: "edit",
     key: "edit",
+    width: 100,
   },
   {
     title: "",
     dataIndex: "delete",
     key: "delete",
+    width: 100,
   },
 ];
 
@@ -48,53 +51,45 @@ const Specifications = () => {
         name: item.typeName,
         description: item.detail,
         edit: (
-          <Button
-            type="primary"
-            style={{ background: "#ff9b1e" }}
+          <GradientButton
+            label={"Chỉnh sửa"}
+            type={"warning"}
             onClick={(e) => {
               e.stopPropagation();
               setSelectedSpecification(item.id);
               toggleUpdate();
             }}
-          >
-            Chỉnh sửa
-          </Button>
+          />
         ),
         delete: (
-          <Button
-            type="primary"
-            style={{ background: "#fb3030" }}
+          <GradientButton
+            label={"Xóa"}
+            type={"danger"}
             onClick={(e) => {
               e.stopPropagation();
               setSelectedSpecification(item.id);
               toggleDelete();
             }}
-          >
-            Xóa
-          </Button>
+          />
         ),
       };
     });
   }, [data]);
   return (
     <div>
-      <Button
-        type="primary"
-        style={{ marginBottom: 16 }}
+      <GradientButton
+        label={"Thêm đặc tính"}
         onClick={toggleAddDialog}
-      >
-        Thêm đặc tính
-      </Button>
-      <Table
-        dataSource={dataSource}
+        style={{ marginBottom: "20px" }}
+      />
+      <CustomTable
         columns={columns}
-        loading={isLoading}
-        onRow={(r) => ({
-          onClick: () => {
-            setSelectedSpecification(r.id);
-            toggleDetail();
-          },
-        })}
+        data={dataSource}
+        isLoading={isLoading}
+        onRowClick={(r) => {
+          setSelectedSpecification(r.id);
+          toggleDetail();
+        }}
       />
       {openAddDialog && <AddSpecification onClose={toggleAddDialog} />}
       {openDetail && (
