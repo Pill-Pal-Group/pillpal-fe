@@ -7,6 +7,7 @@ const GradientButton = ({
   label,
   onClick,
   style,
+  action,
 }) => {
   const gradientClass = useMemo(() => {
     switch (type) {
@@ -22,6 +23,7 @@ const GradientButton = ({
 
   return (
     <Button
+      htmlType={action}
       type="primary"
       className={gradientClass}
       style={{ ...style }}
