@@ -2,7 +2,12 @@ import { Button, Menu } from "antd";
 import { NavLink, useLocation } from "react-router-dom";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 import logo from "../../assets/images/logo.png";
+<<<<<<< HEAD
 import { useState } from "react";
+=======
+import { jwtDecode } from "jwt-decode";
+import { useMemo } from "react";
+>>>>>>> 6dcbf6324d96ad23b5f941f32b3bdac2f418d609
 
 function Sidenav({ color }) {
   const { pathname } = useLocation();
@@ -202,6 +207,25 @@ function Sidenav({ color }) {
     navigate.push("/sign-in");
   };
 
+  const token = localStorage.getItem("token") || "";
+  let decode = {};
+
+  try {
+    decode = jwtDecode(token);
+  } catch (error) {
+    console.error("Invalid token specified:", error.message);
+  }
+
+  const { isAdmin, isManager } = useMemo(() => {
+    let isAdmin = false;
+    let isManager = false;
+    if (decode && decode.role) {
+      isAdmin = decode.role === "Admin";
+      isManager = decode.role === "Manager";
+    }
+
+    return { isAdmin, isManager };
+  }, [decode]);
   return (
     <>
       <div className="brand">
@@ -223,6 +247,7 @@ function Sidenav({ color }) {
             <span className="label">Thống kê</span>
           </NavLink>
         </Menu.Item>
+<<<<<<< HEAD
         <Menu.Item key="2">
           <NavLink to="/tables">
             <span
@@ -299,10 +324,159 @@ function Sidenav({ color }) {
               {tables}
             </span>
             <span className="label">Thương hiệu</span>
+=======
+        {isAdmin && (
+          <Menu.Item key="2">
+            <NavLink to="/tables">
+              <span
+                className="icon"
+                style={{
+                  background: page === "tables" ? color : "",
+                }}
+              >
+                {tables}
+              </span>
+              <span className="label">Người quản lý</span>
+            </NavLink>
+          </Menu.Item>
+        )}
+        {isManager && (
+          <>
+            <Menu.Item key="products">
+              <NavLink to="/products">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Thuốc</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="dosages">
+              <NavLink to="/dosages">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Liều lượng</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="pharmaceuticals">
+              <NavLink to="/pharmaceuticals">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Công ty dược phẩm</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="specifications">
+              <NavLink to="/specifications">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Đặc tính</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="brands">
+              <NavLink to="/brands">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Thương hiệu</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="active-ingredient">
+              <NavLink to="/active-ingredient">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Thành phần hoạt chất</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="nation">
+              <NavLink to="/nation">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Quốc gia</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="categories">
+              <NavLink to="/categories">
+                <span
+                  className="icon"
+                  style={{
+                    background: page === "tables" ? color : "",
+                  }}
+                >
+                  {tables}
+                </span>
+                <span className="label">Danh mục</span>
+              </NavLink>
+            </Menu.Item>
+          </>
+        )}
+        {/* <Menu.Item key="3">
+          <NavLink to="/billing">
+            <span
+              className="icon"
+              style={{
+                background: page === "billing" ? color : "",
+              }}
+            >
+              {billing}
+            </span>
+            <span className="label">Billing</span>
           </NavLink>
         </Menu.Item>
+        <Menu.Item key="4">
+          <NavLink to="/rtl">
+            <span
+              className="icon"
+              style={{
+                background: page === "rtl" ? color : "",
+              }}
+            >
+              {rtl}
+            </span>
+            <span className="label">RTL</span>
+>>>>>>> 6dcbf6324d96ad23b5f941f32b3bdac2f418d609
+          </NavLink>
+        </Menu.Item> */}
         <Menu.Item className="menu-item-header" key="5">
-          Account Pages
+          MỤC NGƯỜI DÙNG
         </Menu.Item>
         <Menu.Item key="6">
           <NavLink to="/profile">
@@ -314,7 +488,7 @@ function Sidenav({ color }) {
             >
               {profile}
             </span>
-            <span className="label">Profile</span>
+            <span className="label">Tài khoản</span>
           </NavLink>
         </Menu.Item>
         <Menu.Item key="7">

@@ -1,0 +1,32 @@
+/* GradientButton.css */
+
+.gradient-warning {
+  background: linear-gradient(to right, #ff9999, #ffff99);
+  border: none;
+  color: black;
+}
+
+.gradient-warning:hover {
+  background: linear-gradient(to right, #ff6666, #ffff66);
+  color: black;
+}
+
+.gradient-danger {
+  background: linear-gradient(to right, #ff66cc, #ff9933);
+  border: none;
+  color: white;
+}
+
+.gradient-danger:hover {
+  background: linear-gradient(to right, #ff3399, #ff6600);
+}
+
+.gradient-primary {
+  background: linear-gradient(to right, #9933ff, #3399ff);
+  border: none;
+  color: white;
+}
+
+.gradient-primary:hover {
+  background: linear-gradient(to right, #6600ff, #0066ff);
+}
